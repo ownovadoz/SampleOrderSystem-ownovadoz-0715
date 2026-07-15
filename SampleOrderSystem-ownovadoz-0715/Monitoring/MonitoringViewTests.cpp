@@ -52,3 +52,18 @@ TEST(MonitoringTest, StockSearchScreen_NoResults_ShowsMessage) {
     view.showStockSearchScreen(in, out);
     EXPECT_NE(out.str().find("검색 결과 없음"), std::string::npos);
 }
+
+TEST(MonitoringTest, StockSearchScreen_Cancelled_ShowsCancelMessage) {
+    SampleModel sampleModel("monview_test_samples4.json");
+    SampleController sampleController(sampleModel);
+    OrderModel orderModel("monview_test_orders4.json");
+    FakeClock clock(std::chrono::system_clock::from_time_t(0));
+    OrderController orderController(orderModel, sampleController, clock);
+    MonitoringController monitoringController(sampleController, orderController);
+    MonitoringView view(monitoringController);
+
+    std::istringstream in("q\n");
+    std::ostringstream out;
+    view.showStockSearchScreen(in, out);
+    EXPECT_NE(out.str().find("취소"), std::string::npos);
+}

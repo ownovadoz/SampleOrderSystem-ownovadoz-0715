@@ -1,4 +1,5 @@
 #include "MonitoringView.h"
+#include "../Common/ConsoleInput.h"
 
 namespace monitoring {
 
@@ -30,11 +31,14 @@ void MonitoringView::showStockOverviewScreen(std::ostream& out) {
 }
 
 void MonitoringView::showStockSearchScreen(std::istream& in, std::ostream& out) {
-    out << "검색어 > ";
-    std::string keyword;
-    std::getline(in, keyword);
+    out << "검색어 (취소: q) > ";
+    auto keywordInput = common::readLine(in);
+    if (!keywordInput.ok || keywordInput.cancelled) {
+        out << "취소되었습니다\n";
+        return;
+    }
 
-    auto results = controller_.searchStockOverview(keyword);
+    auto results = controller_.searchStockOverview(keywordInput.text);
     if (results.empty()) {
         out << "검색 결과 없음\n";
         return;
