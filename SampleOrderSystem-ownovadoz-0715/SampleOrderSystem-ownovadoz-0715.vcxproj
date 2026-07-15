@@ -164,9 +164,11 @@
     <ClCompile Include="OrderClerk\OrderView.cpp" />
     <ClCompile Include="Testing\DummyDataGeneratorTests.cpp" />
     <ClCompile Include="Testing\DummyDataGenerator.cpp" />
+    <ClCompile Include="ProductionLine\ProductionQueueModelTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
+    <ClInclude Include="ProductionLine\ProductionJob.h" />
     <ClInclude Include="Common\DateFormat.h" />
     <ClInclude Include="OrderClerk\OrderModel.h" />
     <ClInclude Include="OrderClerk\OrderController.h" />
