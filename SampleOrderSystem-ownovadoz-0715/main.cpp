@@ -2,6 +2,10 @@
 #include "SampleClerk/SampleModel.h"
 #include "SampleClerk/SampleController.h"
 #include "SampleClerk/SampleView.h"
+#include "Common/Clock.h"
+#include "OrderClerk/OrderModel.h"
+#include "OrderClerk/OrderController.h"
+#include "OrderClerk/OrderView.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -36,9 +40,15 @@ int main() {
     sampleclerk::SampleController sampleController(sampleModel);
     sampleclerk::SampleView sampleView(sampleController);
 
+    common::SystemClock systemClock;
+    orderclerk::OrderModel orderModel("orders.dat");
+    orderModel.load();
+    orderclerk::OrderController orderController(orderModel, sampleController, systemClock);
+    orderclerk::OrderView orderView(orderController);
+
     while (true) {
         std::cout << "\n반도체 시료 생산주문관리 시스템\n";
-        std::cout << "[1] 시료 등록  [2] 시료 조회  [3] 시료 검색  [0] 종료\n";
+        std::cout << "[1] 시료 등록  [2] 시료 예약(주문 접수)  [3] 시료 조회  [4] 시료 검색  [0] 종료\n";
         std::cout << "선택 > ";
         int choice = 0;
         if (!(std::cin >> choice)) break;
@@ -47,8 +57,10 @@ int main() {
         if (choice == 1) {
             sampleView.showRegisterScreen(std::cin, std::cout);
         } else if (choice == 2) {
-            sampleView.showListScreen(std::cout);
+            orderView.showReserveScreen(std::cin, std::cout);
         } else if (choice == 3) {
+            sampleView.showListScreen(std::cout);
+        } else if (choice == 4) {
             sampleView.showSearchScreen(std::cin, std::cout);
         } else if (choice == 0) {
             break;
@@ -56,6 +68,7 @@ int main() {
     }
 
     sampleModel.save();
+    orderModel.save();
     return 0;
 }
 #endif
