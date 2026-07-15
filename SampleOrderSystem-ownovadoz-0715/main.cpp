@@ -11,6 +11,8 @@
 #include "ProductionLine/ProductionLineView.h"
 #include "ProductionClerk/ProductionClerkController.h"
 #include "ProductionClerk/ProductionClerkView.h"
+#include "Monitoring/MonitoringController.h"
+#include "Monitoring/MonitoringView.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -117,6 +119,27 @@ void runProductionLineMenu(productionline::ProductionLineView& productionLineVie
     }
 }
 
+void runMonitoringMenu(monitoring::MonitoringView& monitoringView) {
+    while (true) {
+        std::cout << "\n[모니터링]\n";
+        std::cout << "[1] 주문량 확인  [2] 재고량 확인  [3] 재고 검색  [0] 이전 메뉴\n";
+        std::cout << "선택 > ";
+        int choice = 0;
+        if (!(std::cin >> choice)) return;
+        std::cin.ignore();
+
+        if (choice == 1) {
+            monitoringView.showOrderCountsScreen(std::cout);
+        } else if (choice == 2) {
+            monitoringView.showStockOverviewScreen(std::cout);
+        } else if (choice == 3) {
+            monitoringView.showStockSearchScreen(std::cin, std::cout);
+        } else if (choice == 0) {
+            return;
+        }
+    }
+}
+
 } // namespace
 
 int main() {
@@ -143,6 +166,9 @@ int main() {
                                                                            productionLineController);
     productionclerk::ProductionClerkView productionClerkView(productionClerkController);
 
+    monitoring::MonitoringController monitoringController(sampleController, orderController);
+    monitoring::MonitoringView monitoringView(monitoringController);
+
     while (true) {
         std::cout << "\n반도체 시료 생산주문관리 시스템\n";
         std::cout << "[1] 시료 관리  [2] 주문(접수/승인/거절)  [3] 모니터링  [4] 출고 처리  [5] 생산 라인  [0] 종료\n";
@@ -156,7 +182,7 @@ int main() {
         } else if (choice == 2) {
             runOrderMenu(orderView, productionClerkView);
         } else if (choice == 3) {
-            std::cout << "모니터링 메뉴는 아직 구현되지 않았습니다\n";
+            runMonitoringMenu(monitoringView);
         } else if (choice == 4) {
             runShipmentMenu(productionClerkView);
         } else if (choice == 5) {
