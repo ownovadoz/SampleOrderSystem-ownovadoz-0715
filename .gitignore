@@ -5,7 +5,7 @@ Debug/
 Release/
 *.user
 
-# 실행 시 생성되는 런타임 데이터 파일 (소스 아님)
-SampleOrderSystem-ownovadoz-0715/samples.json
-SampleOrderSystem-ownovadoz-0715/orders.json
-SampleOrderSystem-ownovadoz-0715/production_queue.json
+# 실행 시 생성되는 런타임 데이터 파일 (소스 아님, 실행 위치에 따라 저장소 루트에도 생길 수 있음)
+samples.json
+orders.json
+production_queue.json
