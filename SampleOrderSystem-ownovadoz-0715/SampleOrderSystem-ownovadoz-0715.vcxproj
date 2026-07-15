@@ -158,11 +158,13 @@
     <ClCompile Include="OrderClerk\OrderModelTests.cpp" />
     <ClCompile Include="OrderClerk\OrderModel.cpp" />
     <ClCompile Include="OrderClerk\OrderControllerTests.cpp" />
+    <ClCompile Include="OrderClerk\OrderController.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
     <ClInclude Include="Common\DateFormat.h" />
     <ClInclude Include="OrderClerk\OrderModel.h" />
+    <ClInclude Include="OrderClerk\OrderController.h" />
     <ClInclude Include="Common\OrderStatus.h" />
     <ClInclude Include="Common\Sample.h" />
     <ClInclude Include="Common\Order.h" />
