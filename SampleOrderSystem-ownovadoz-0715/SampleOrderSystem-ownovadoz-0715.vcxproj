@@ -151,6 +151,7 @@
     <ClCompile Include="Common\Clock.cpp" />
     <ClCompile Include="Common\JsonValue.cpp" />
     <ClCompile Include="Common\ConsoleInputTests.cpp" />
+    <ClCompile Include="Common\ConsoleInput.cpp" />
     <ClCompile Include="SampleClerk\SampleModelTests.cpp" />
     <ClCompile Include="SampleClerk\SampleModel.cpp" />
     <ClCompile Include="SampleClerk\SampleControllerTests.cpp" />
@@ -201,6 +202,7 @@
     <ClInclude Include="SampleClerk\SampleController.h" />
     <ClInclude Include="SampleClerk\SampleView.h" />
     <ClInclude Include="Testing\DummyDataGenerator.h" />
+    <ClInclude Include="Common\ConsoleInput.h" />
     <ClInclude Include="ProductionClerk\ProductionClerkController.h" />
     <ClInclude Include="ProductionClerk\ProductionClerkView.h" />
     <ClInclude Include="Monitoring\MonitoringController.h" />
