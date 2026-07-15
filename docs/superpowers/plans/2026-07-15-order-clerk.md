@@ -23,9 +23,10 @@
 - 아키텍처 스펙 4.2절(데이터 구조), 5장(공개 API), 10.4절(화면 명세)을 따른다.
 - 주문번호 형식: `ORD-{YYYYMMDD}-{4자리 일련번호}`, 일련번호는 그날 생성된 주문 수만큼 0001부터 증가
   (스펙 10.4절에서 정한 규칙). 날짜는 `common::IClock`에서 얻은 현재 시각을 UTC 기준 `YYYYMMDD`로 변환.
-- `orders.dat` 파일 포맷: `주문ID|시료ID|고객명|수량|상태(정수)` 파이프 구분 텍스트, 한 줄당 한 주문.
-  상태는 `common::OrderStatus`의 선언 순서(`RESERVED=0, REJECTED=1, PRODUCING=2, CONFIRMED=3, RELEASE=4`)를
-  정수로 저장한다.
+- `orders.json` 파일 포맷: JSON 포맷(`Common/FileRepository.h`의 `FileRepository<T>` +
+  `Common::Sample`/`Common::Order`의 `ToJson`/`FromJson`, PRD.md 3장 및 `DataPersistence-ownovadoz-0715`
+  PoC 참고). 상태는 `common::OrderStatus`의 선언 순서(`RESERVED=0, REJECTED=1, PRODUCING=2, CONFIRMED=3,
+  RELEASE=4`)를 정수로 저장한다.
 - 에러 처리는 Sample Clerk 플랜에서 도입한 `common::Result` 패턴을 따르되, 주문 생성은 성공 시 생성된
   주문번호를 돌려줘야 하므로 이 모듈 전용 `OrderController::CreateOrderResult{bool ok; string error;
   string orderId;}`를 추가로 쓴다 (다른 모듈이 재사용할 일이 없어 `Common/`이 아니라 `OrderController.h`에

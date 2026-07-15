@@ -27,6 +27,9 @@
     <ClCompile Include="Common\Clock.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Common\JsonValue.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="SampleClerk\SampleModelTests.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
@@ -92,7 +95,10 @@
     <ClInclude Include="Common\Clock.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="Common\StringUtil.h">
+    <ClInclude Include="Common\JsonValue.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\FileRepository.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SampleClerk\SampleModel.h">

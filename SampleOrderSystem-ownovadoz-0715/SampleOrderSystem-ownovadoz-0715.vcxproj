@@ -149,6 +149,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Common\ClockTests.cpp" />
     <ClCompile Include="Common\Clock.cpp" />
+    <ClCompile Include="Common\JsonValue.cpp" />
     <ClCompile Include="SampleClerk\SampleModelTests.cpp" />
     <ClCompile Include="SampleClerk\SampleModel.cpp" />
     <ClCompile Include="SampleClerk\SampleControllerTests.cpp" />
@@ -172,7 +173,8 @@
     <ClInclude Include="Common\Sample.h" />
     <ClInclude Include="Common\Order.h" />
     <ClInclude Include="Common\Clock.h" />
-    <ClInclude Include="Common\StringUtil.h" />
+    <ClInclude Include="Common\JsonValue.h" />
+    <ClInclude Include="Common\FileRepository.h" />
     <ClInclude Include="SampleClerk\SampleModel.h" />
     <ClInclude Include="Common\Result.h" />
     <ClInclude Include="SampleClerk\SampleController.h" />

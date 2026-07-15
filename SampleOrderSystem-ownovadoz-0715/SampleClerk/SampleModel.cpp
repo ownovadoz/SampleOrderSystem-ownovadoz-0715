@@ -1,7 +1,5 @@
 #include "SampleModel.h"
-#include "../Common/StringUtil.h"
-#include <fstream>
-#include <iomanip>
+#include "../Common/FileRepository.h"
 
 namespace sampleclerk {
 
@@ -9,36 +7,25 @@ SampleModel::SampleModel(std::string filePath) : filePath_(std::move(filePath)) 
 
 void SampleModel::load() {
     samples_.clear();
-    std::ifstream in(filePath_);
-    if (!in.is_open()) {
-        return; // 파일이 없으면 빈 상태로 시작
-    }
-    std::string line;
-    while (std::getline(in, line)) {
-        if (line.empty()) continue;
-        auto fields = common::splitString(line, '|');
-        if (fields.size() != 5) continue;
-        common::Sample sample;
-        sample.id = fields[0];
-        sample.name = fields[1];
-        sample.avgProductionTime = common::Duration(std::stoll(fields[2]));
-        sample.yield = std::stod(fields[3]);
-        sample.stock = std::stoi(fields[4]);
+    FileRepository<common::Sample> repository;
+    for (const auto& sample : repository.Load(filePath_)) {
         samples_[sample.id] = sample;
     }
 }
 
 bool SampleModel::save() const {
-    std::ofstream out(filePath_, std::ios::trunc);
-    if (!out.is_open()) {
+    FileRepository<common::Sample> repository;
+    std::vector<common::Sample> items;
+    items.reserve(samples_.size());
+    for (const auto& [id, sample] : samples_) {
+        items.push_back(sample);
+    }
+    try {
+        repository.Save(filePath_, items);
+        return true;
+    } catch (const std::exception&) {
         return false;
     }
-    out << std::setprecision(10);
-    for (const auto& [id, sample] : samples_) {
-        out << sample.id << '|' << sample.name << '|' << sample.avgProductionTime.count() << '|'
-            << sample.yield << '|' << sample.stock << '\n';
-    }
-    return true;
 }
 
 bool SampleModel::exists(const std::string& id) const {

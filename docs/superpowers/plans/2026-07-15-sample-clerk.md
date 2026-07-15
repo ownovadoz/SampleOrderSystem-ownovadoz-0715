@@ -34,9 +34,9 @@
 - 스펙 11장에서 "다음 단계에서 정한다"고 미뤄둔 항목 중 이 계획에서 확정하는 것:
   - **에러 처리 방식**: 예외 대신 `common::Result{bool ok; std::string error;}` 반환값 사용 (실패 이유를
     호출부가 그대로 화면에 보여줘야 하는 화면 흐름이 많아, 예외보다 반환값이 다루기 쉽다)
-  - **`samples.dat` 파일 포맷**: `시료ID|이름|평균생산시간(초, 정수)|수율(실수)|재고(정수)` 파이프 구분
-    텍스트 한 줄당 한 시료. (제약: 이름에 `|` 문자가 들어가면 파싱이 깨짐 — 이 프로젝트 범위에서는 다루지
-    않음)
+  - **`samples.json` 파일 포맷**: JSON 포맷(`Common/FileRepository.h`의 `FileRepository<T>` +
+    `Common::Sample`/`Common::Order`의 `ToJson`/`FromJson`, PRD.md 3장 및 `DataPersistence-ownovadoz-0715`
+    PoC 참고)
 - 새로 등록된 시료의 초기 재고는 0이다 (명세에 없어 이번에 정함 — 생산 이력이 없으니 0이 자연스러움)
 - 평균 생산시간은 사용자에게는 "분" 단위로 입력받아 내부적으로 `common::Duration`(초)으로 변환해 저장한다
 

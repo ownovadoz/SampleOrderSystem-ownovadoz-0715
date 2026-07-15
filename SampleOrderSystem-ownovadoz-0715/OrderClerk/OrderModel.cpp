@@ -1,48 +1,31 @@
 #include "OrderModel.h"
-#include "../Common/StringUtil.h"
-#include <fstream>
+#include "../Common/FileRepository.h"
 
 namespace orderclerk {
-
-namespace {
-common::OrderStatus intToStatus(int v) {
-    return static_cast<common::OrderStatus>(v);
-}
-} // namespace
 
 OrderModel::OrderModel(std::string filePath) : filePath_(std::move(filePath)) {}
 
 void OrderModel::load() {
     orders_.clear();
-    std::ifstream in(filePath_);
-    if (!in.is_open()) {
-        return;
-    }
-    std::string line;
-    while (std::getline(in, line)) {
-        if (line.empty()) continue;
-        auto fields = common::splitString(line, '|');
-        if (fields.size() != 5) continue;
-        common::Order order;
-        order.id = fields[0];
-        order.sampleId = fields[1];
-        order.customerName = fields[2];
-        order.quantity = std::stoi(fields[3]);
-        order.status = intToStatus(std::stoi(fields[4]));
+    FileRepository<common::Order> repository;
+    for (const auto& order : repository.Load(filePath_)) {
         orders_[order.id] = order;
     }
 }
 
 bool OrderModel::save() const {
-    std::ofstream out(filePath_, std::ios::trunc);
-    if (!out.is_open()) {
+    FileRepository<common::Order> repository;
+    std::vector<common::Order> items;
+    items.reserve(orders_.size());
+    for (const auto& [id, order] : orders_) {
+        items.push_back(order);
+    }
+    try {
+        repository.Save(filePath_, items);
+        return true;
+    } catch (const std::exception&) {
         return false;
     }
-    for (const auto& [id, order] : orders_) {
-        out << order.id << '|' << order.sampleId << '|' << order.customerName << '|'
-            << order.quantity << '|' << static_cast<int>(order.status) << '\n';
-    }
-    return true;
 }
 
 void OrderModel::insert(const common::Order& order) {
