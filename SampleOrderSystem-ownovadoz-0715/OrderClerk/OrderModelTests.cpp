@@ -1,9 +1,11 @@
 #include "OrderModel.h"
+#include "../Testing/DummyDataGenerator.h"
 #include <gtest/gtest.h>
 #include <cstdio>
 
 using namespace orderclerk;
 using namespace common;
+using testing_support::DummyDataGenerator;
 
 TEST(OrderClerkTest, OrderModel_LoadFromMissingFile_StartsEmpty) {
     OrderModel model("nonexistent_orders_test.dat");
@@ -13,28 +15,32 @@ TEST(OrderClerkTest, OrderModel_LoadFromMissingFile_StartsEmpty) {
 
 TEST(OrderClerkTest, OrderModel_InsertAndFind) {
     OrderModel model("orders_test_insert.dat");
-    Order o{"ORD-20260416-0001", "S-001", "삼성전자", 100, OrderStatus::RESERVED};
+    DummyDataGenerator gen;
+    auto o = gen.order(1, "S-001", 100);
     model.insert(o);
-    auto found = model.find("ORD-20260416-0001");
+    auto found = model.find(o.id);
     ASSERT_TRUE(found.has_value());
-    EXPECT_EQ(found->customerName, "삼성전자");
+    EXPECT_EQ(found->customerName, o.customerName);
     EXPECT_EQ(found->quantity, 100);
 }
 
 TEST(OrderClerkTest, OrderModel_SaveThenLoad_RoundTrips) {
     const std::string path = "orders_test_roundtrip.dat";
     std::remove(path.c_str());
+    DummyDataGenerator gen;
+    auto o1 = gen.order(1, "S-001", 100, OrderStatus::RESERVED);
+    auto o2 = gen.order(2, "S-002", 50, OrderStatus::CONFIRMED);
     {
         OrderModel model(path);
-        model.insert(Order{"ORD-20260416-0001", "S-001", "삼성전자", 100, OrderStatus::RESERVED});
-        model.insert(Order{"ORD-20260416-0002", "S-002", "SK하이닉스", 50, OrderStatus::CONFIRMED});
+        model.insert(o1);
+        model.insert(o2);
         EXPECT_TRUE(model.save());
     }
     {
         OrderModel model(path);
         model.load();
         EXPECT_EQ(model.findAll().size(), 2u);
-        auto found = model.find("ORD-20260416-0002");
+        auto found = model.find(o2.id);
         ASSERT_TRUE(found.has_value());
         EXPECT_EQ(found->status, OrderStatus::CONFIRMED);
     }
@@ -43,7 +49,9 @@ TEST(OrderClerkTest, OrderModel_SaveThenLoad_RoundTrips) {
 
 TEST(OrderClerkTest, OrderModel_UpdateStatus_ChangesValue) {
     OrderModel model("orders_test_update.dat");
-    model.insert(Order{"ORD-20260416-0001", "S-001", "삼성전자", 100, OrderStatus::RESERVED});
-    model.updateStatus("ORD-20260416-0001", OrderStatus::CONFIRMED);
-    EXPECT_EQ(model.find("ORD-20260416-0001")->status, OrderStatus::CONFIRMED);
+    DummyDataGenerator gen;
+    auto o = gen.order(1, "S-001", 100);
+    model.insert(o);
+    model.updateStatus(o.id, OrderStatus::CONFIRMED);
+    EXPECT_EQ(model.find(o.id)->status, OrderStatus::CONFIRMED);
 }
