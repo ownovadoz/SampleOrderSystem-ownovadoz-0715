@@ -48,12 +48,18 @@
     <ClCompile Include="OrderClerk\OrderModelTests.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="OrderClerk\OrderModel.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Common\DateFormat.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderClerk\OrderModel.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Common\OrderStatus.h">
