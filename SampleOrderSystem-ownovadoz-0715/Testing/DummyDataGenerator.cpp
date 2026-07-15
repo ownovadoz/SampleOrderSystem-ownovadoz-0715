@@ -71,4 +71,10 @@ common::Order DummyDataGenerator::order(int index, const std::string& sampleId, 
     return o;
 }
 
+int DummyDataGenerator::randomInRange(int index, int minValue, int maxValue) const {
+    std::mt19937 rng(seed_ + 20000u + static_cast<unsigned>(index));
+    std::uniform_int_distribution<int> dist(minValue, maxValue);
+    return dist(rng);
+}
+
 } // namespace testing_support

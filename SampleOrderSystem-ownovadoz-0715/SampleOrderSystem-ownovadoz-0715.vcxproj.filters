@@ -89,6 +89,12 @@
     <ClCompile Include="Testing\DummyDataGenerator.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
+    <ClCompile Include="Testing\DummySeederTests.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
+    <ClCompile Include="Testing\DummySeeder.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
     <ClCompile Include="ProductionLine\ProductionQueueModelTests.cpp">
       <Filter>ProductionLine</Filter>
     </ClCompile>
@@ -206,6 +212,9 @@
       <Filter>Monitoring</Filter>
     </ClInclude>
     <ClInclude Include="Testing\DummyDataGenerator.h">
+      <Filter>Testing</Filter>
+    </ClInclude>
+    <ClInclude Include="Testing\DummySeeder.h">
       <Filter>Testing</Filter>
     </ClInclude>
   </ItemGroup>

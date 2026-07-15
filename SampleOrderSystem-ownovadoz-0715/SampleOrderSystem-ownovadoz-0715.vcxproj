@@ -166,6 +166,8 @@
     <ClCompile Include="OrderClerk\OrderView.cpp" />
     <ClCompile Include="Testing\DummyDataGeneratorTests.cpp" />
     <ClCompile Include="Testing\DummyDataGenerator.cpp" />
+    <ClCompile Include="Testing\DummySeederTests.cpp" />
+    <ClCompile Include="Testing\DummySeeder.cpp" />
     <ClCompile Include="ProductionLine\ProductionQueueModelTests.cpp" />
     <ClCompile Include="ProductionLine\ProductionQueueModel.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineControllerTests.cpp" />
@@ -202,6 +204,7 @@
     <ClInclude Include="SampleClerk\SampleController.h" />
     <ClInclude Include="SampleClerk\SampleView.h" />
     <ClInclude Include="Testing\DummyDataGenerator.h" />
+    <ClInclude Include="Testing\DummySeeder.h" />
     <ClInclude Include="Common\ConsoleInput.h" />
     <ClInclude Include="ProductionClerk\ProductionClerkController.h" />
     <ClInclude Include="ProductionClerk\ProductionClerkView.h" />

@@ -37,3 +37,17 @@ TEST(DummyDataGeneratorTest, SameSeedAndIndex_ProducesIdenticalOrder) {
     EXPECT_EQ(a.sampleId, b.sampleId);
     EXPECT_EQ(a.quantity, b.quantity);
 }
+
+TEST(DummyDataGeneratorTest, RandomInRange_SameSeedAndIndex_ProducesIdenticalValue) {
+    DummyDataGenerator gen(42);
+    EXPECT_EQ(gen.randomInRange(1, 0, 100), gen.randomInRange(1, 0, 100));
+}
+
+TEST(DummyDataGeneratorTest, RandomInRange_StaysWithinBounds) {
+    DummyDataGenerator gen(42);
+    for (int i = 1; i <= 20; ++i) {
+        int value = gen.randomInRange(i, 10, 20);
+        EXPECT_GE(value, 10);
+        EXPECT_LE(value, 20);
+    }
+}

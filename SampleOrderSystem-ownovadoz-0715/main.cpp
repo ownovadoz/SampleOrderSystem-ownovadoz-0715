@@ -14,6 +14,9 @@
 #include "ProductionClerk/ProductionClerkView.h"
 #include "Monitoring/MonitoringController.h"
 #include "Monitoring/MonitoringView.h"
+#include "Testing/DummySeeder.h"
+#include <cstdlib>
+#include <string>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -160,10 +163,42 @@ void runMonitoringMenu(monitoring::MonitoringView& monitoringView) {
     }
 }
 
+// 더미 데이터 생성 모드: `SampleOrderSystem-ownovadoz-0715.exe --seed <시료 개수> [주문 개수]`로 실행하면
+// samples.json/orders.json/production_queue.json에 서로 앞뒤가 맞는 더미 데이터를 이어서 추가하고 즉시
+// 종료한다. PRD.md 3장에 따라 일반 메뉴에는 노출하지 않는다 — 담당자가 앱을 수동으로 테스트해볼 때만
+// 이 인자를 직접 붙여 실행한다.
+int runDummySeedMode(int sampleCount, int orderCount) {
+    sampleclerk::SampleModel sampleModel("samples.json");
+    sampleModel.load();
+    orderclerk::OrderModel orderModel("orders.json");
+    orderModel.load();
+    productionline::ProductionQueueModel queueModel("production_queue.json");
+    queueModel.load();
+    common::SystemClock clock;
+
+    auto result = testing_support::seedDummyData(sampleModel, orderModel, queueModel, clock, sampleCount,
+                                                  orderCount);
+
+    sampleModel.save();
+    orderModel.save();
+    queueModel.save();
+
+    std::cout << "더미 데이터 생성 완료: 시료 " << result.samplesCreated << "건, 주문 " << result.ordersCreated
+              << "건, 생산 큐 " << result.productionJobsCreated << "건 (samples.json/orders.json/"
+              << "production_queue.json에 이어서 저장됨)\n";
+    return 0;
+}
+
 } // namespace
 
-int main() {
+int main(int argc, char** argv) {
     setupConsoleEncoding();
+
+    if (argc > 1 && std::string(argv[1]) == "--seed") {
+        int sampleCount = argc > 2 ? std::atoi(argv[2]) : 5;
+        int orderCount = argc > 3 ? std::atoi(argv[3]) : sampleCount * 3;
+        return runDummySeedMode(sampleCount, orderCount);
+    }
 
     sampleclerk::SampleModel sampleModel("samples.json");
     sampleModel.load();

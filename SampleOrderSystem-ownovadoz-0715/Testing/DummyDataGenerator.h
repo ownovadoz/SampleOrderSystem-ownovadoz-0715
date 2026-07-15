@@ -18,6 +18,9 @@ public:
     common::Order order(int index, const std::string& sampleId, int quantity,
                          common::OrderStatus status = common::OrderStatus::RESERVED) const;
 
+    // [minValue, maxValue] 범위의 정수를 결정적으로 생성한다 (재고량/주문 수량 등에 사용).
+    int randomInRange(int index, int minValue, int maxValue) const;
+
 private:
     unsigned seed_;
 };
