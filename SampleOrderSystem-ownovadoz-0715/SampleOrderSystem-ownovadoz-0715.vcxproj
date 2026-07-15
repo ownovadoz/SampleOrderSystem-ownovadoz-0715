@@ -154,6 +154,7 @@
     <ClCompile Include="SampleClerk\SampleControllerTests.cpp" />
     <ClCompile Include="SampleClerk\SampleController.cpp" />
     <ClCompile Include="SampleClerk\SampleViewTests.cpp" />
+    <ClCompile Include="SampleClerk\SampleView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
@@ -165,6 +166,7 @@
     <ClInclude Include="SampleClerk\SampleModel.h" />
     <ClInclude Include="Common\Result.h" />
     <ClInclude Include="SampleClerk\SampleController.h" />
+    <ClInclude Include="SampleClerk\SampleView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
