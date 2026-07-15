@@ -39,6 +39,9 @@
     <ClCompile Include="SampleClerk\SampleController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SampleClerk\SampleViewTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">

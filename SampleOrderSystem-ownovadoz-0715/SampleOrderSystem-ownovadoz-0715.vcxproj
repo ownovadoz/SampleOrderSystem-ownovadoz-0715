@@ -153,6 +153,7 @@
     <ClCompile Include="SampleClerk\SampleModel.cpp" />
     <ClCompile Include="SampleClerk\SampleControllerTests.cpp" />
     <ClCompile Include="SampleClerk\SampleController.cpp" />
+    <ClCompile Include="SampleClerk\SampleViewTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
