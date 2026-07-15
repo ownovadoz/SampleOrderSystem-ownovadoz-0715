@@ -168,6 +168,7 @@
     <ClCompile Include="ProductionLine\ProductionQueueModel.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineControllerTests.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineController.cpp" />
+    <ClCompile Include="ProductionLine\ProductionLineViewTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />

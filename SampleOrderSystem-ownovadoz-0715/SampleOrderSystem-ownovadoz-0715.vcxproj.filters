@@ -84,6 +84,9 @@
     <ClCompile Include="ProductionLine\ProductionLineController.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ProductionLine\ProductionLineViewTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
