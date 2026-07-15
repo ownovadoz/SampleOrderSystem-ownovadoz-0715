@@ -169,12 +169,14 @@
     <ClCompile Include="ProductionLine\ProductionLineControllerTests.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineController.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineViewTests.cpp" />
+    <ClCompile Include="ProductionLine\ProductionLineView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
     <ClInclude Include="ProductionLine\ProductionJob.h" />
     <ClInclude Include="ProductionLine\ProductionQueueModel.h" />
     <ClInclude Include="ProductionLine\ProductionLineController.h" />
+    <ClInclude Include="ProductionLine\ProductionLineView.h" />
     <ClInclude Include="Common\DateFormat.h" />
     <ClInclude Include="OrderClerk\OrderModel.h" />
     <ClInclude Include="OrderClerk\OrderController.h" />

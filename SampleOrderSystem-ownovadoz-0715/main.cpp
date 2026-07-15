@@ -6,6 +6,9 @@
 #include "OrderClerk/OrderModel.h"
 #include "OrderClerk/OrderController.h"
 #include "OrderClerk/OrderView.h"
+#include "ProductionLine/ProductionQueueModel.h"
+#include "ProductionLine/ProductionLineController.h"
+#include "ProductionLine/ProductionLineView.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -72,6 +75,25 @@ void runOrderMenu(orderclerk::OrderView& orderView) {
     }
 }
 
+void runProductionLineMenu(productionline::ProductionLineView& productionLineView) {
+    while (true) {
+        std::cout << "\n[생산 라인]\n";
+        std::cout << "[1] 생산 현황  [2] 대기 주문 확인  [0] 이전 메뉴\n";
+        std::cout << "선택 > ";
+        int choice = 0;
+        if (!(std::cin >> choice)) return;
+        std::cin.ignore();
+
+        if (choice == 1) {
+            productionLineView.showCurrentJobScreen(std::cout);
+        } else if (choice == 2) {
+            productionLineView.showQueueScreen(std::cout);
+        } else if (choice == 0) {
+            return;
+        }
+    }
+}
+
 } // namespace
 
 int main() {
@@ -87,6 +109,12 @@ int main() {
     orderModel.load();
     orderclerk::OrderController orderController(orderModel, sampleController, systemClock);
     orderclerk::OrderView orderView(orderController);
+
+    productionline::ProductionQueueModel queueModel("production_queue.json");
+    queueModel.load();
+    productionline::ProductionLineController productionLineController(queueModel, sampleController,
+                                                                        orderController, systemClock);
+    productionline::ProductionLineView productionLineView(productionLineController);
 
     while (true) {
         std::cout << "\n반도체 시료 생산주문관리 시스템\n";
@@ -105,7 +133,7 @@ int main() {
         } else if (choice == 4) {
             std::cout << "출고 처리 메뉴는 아직 구현되지 않았습니다\n";
         } else if (choice == 5) {
-            std::cout << "생산 라인 메뉴는 아직 구현되지 않았습니다\n";
+            runProductionLineMenu(productionLineView);
         } else if (choice == 0) {
             break;
         }
@@ -113,6 +141,7 @@ int main() {
 
     sampleModel.save();
     orderModel.save();
+    queueModel.save();
     return 0;
 }
 #endif

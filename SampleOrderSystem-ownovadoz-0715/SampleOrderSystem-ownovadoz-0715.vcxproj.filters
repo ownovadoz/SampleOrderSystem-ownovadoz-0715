@@ -87,6 +87,9 @@
     <ClCompile Include="ProductionLine\ProductionLineViewTests.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ProductionLine\ProductionLineView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
@@ -99,6 +102,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ProductionLine\ProductionLineController.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionLine\ProductionLineView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Common\DateFormat.h">
