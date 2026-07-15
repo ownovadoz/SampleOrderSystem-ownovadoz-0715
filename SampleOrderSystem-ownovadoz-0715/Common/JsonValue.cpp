@@ -1,6 +1,7 @@
 #include "JsonValue.h"
 
 #include <cmath>
+#include <limits>
 #include <sstream>
 #include <stdexcept>
 
@@ -40,7 +41,10 @@ namespace json {
                 out << static_cast<long long>(value);
             } else {
                 std::ostringstream numberStream;
-                numberStream.precision(15);
+                // double을 정확히 왕복(round-trip)시키려면 최대 17자리(max_digits10)가 필요하다.
+                // 15자리(기존 DataPersistence PoC 값)로는 마지막 몇 비트가 소실되어 저장 전/후 값이
+                // 달라질 수 있다 (예: yield 같은 필드가 저장 후 다시 읽으면 미세하게 다른 double이 됨).
+                numberStream.precision(std::numeric_limits<double>::max_digits10);
                 numberStream << value;
                 out << numberStream.str();
             }
