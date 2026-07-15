@@ -1,13 +1,26 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
+    <Filter Include="Common">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    <Filter Include="SampleClerk">
+      <UniqueIdentifier>{8A1B2C3D-0001-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="OrderClerk">
+      <UniqueIdentifier>{8A1B2C3D-0002-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProductionLine">
+      <UniqueIdentifier>{8A1B2C3D-0003-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ProductionClerk">
+      <UniqueIdentifier>{8A1B2C3D-0004-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Monitoring">
+      <UniqueIdentifier>{8A1B2C3D-0005-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Testing">
+      <UniqueIdentifier>{8A1B2C3D-0006-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
     </Filter>
     <Filter Include="리소스 파일">
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
@@ -18,184 +31,182 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Common\ClockTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Common\Clock.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Common\JsonValue.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Common\ConsoleInputTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="Common\ConsoleInput.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Common</Filter>
     </ClCompile>
     <ClCompile Include="SampleClerk\SampleModelTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SampleClerk</Filter>
     </ClCompile>
     <ClCompile Include="SampleClerk\SampleModel.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SampleClerk</Filter>
     </ClCompile>
     <ClCompile Include="SampleClerk\SampleControllerTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SampleClerk</Filter>
     </ClCompile>
     <ClCompile Include="SampleClerk\SampleController.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SampleClerk</Filter>
     </ClCompile>
     <ClCompile Include="SampleClerk\SampleViewTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SampleClerk</Filter>
     </ClCompile>
     <ClCompile Include="SampleClerk\SampleView.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>SampleClerk</Filter>
     </ClCompile>
     <ClCompile Include="OrderClerk\OrderModelTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>OrderClerk</Filter>
     </ClCompile>
     <ClCompile Include="OrderClerk\OrderModel.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>OrderClerk</Filter>
     </ClCompile>
     <ClCompile Include="OrderClerk\OrderControllerTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>OrderClerk</Filter>
     </ClCompile>
     <ClCompile Include="OrderClerk\OrderController.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>OrderClerk</Filter>
     </ClCompile>
     <ClCompile Include="OrderClerk\OrderViewTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>OrderClerk</Filter>
     </ClCompile>
     <ClCompile Include="OrderClerk\OrderView.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>OrderClerk</Filter>
     </ClCompile>
     <ClCompile Include="Testing\DummyDataGeneratorTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Testing</Filter>
     </ClCompile>
     <ClCompile Include="Testing\DummyDataGenerator.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Testing</Filter>
     </ClCompile>
     <ClCompile Include="ProductionLine\ProductionQueueModelTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionLine</Filter>
     </ClCompile>
     <ClCompile Include="ProductionLine\ProductionQueueModel.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionLine</Filter>
     </ClCompile>
     <ClCompile Include="ProductionLine\ProductionLineControllerTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionLine</Filter>
     </ClCompile>
     <ClCompile Include="ProductionLine\ProductionLineController.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionLine</Filter>
     </ClCompile>
     <ClCompile Include="ProductionLine\ProductionLineViewTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionLine</Filter>
     </ClCompile>
     <ClCompile Include="ProductionLine\ProductionLineView.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionLine</Filter>
     </ClCompile>
     <ClCompile Include="ProductionClerk\ProductionClerkControllerTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionClerk</Filter>
     </ClCompile>
     <ClCompile Include="ProductionClerk\ProductionClerkController.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionClerk</Filter>
     </ClCompile>
     <ClCompile Include="ProductionClerk\ProductionClerkViewTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionClerk</Filter>
     </ClCompile>
     <ClCompile Include="ProductionClerk\ProductionClerkView.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>ProductionClerk</Filter>
     </ClCompile>
     <ClCompile Include="Monitoring\MonitoringControllerTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Monitoring</Filter>
     </ClCompile>
     <ClCompile Include="Monitoring\MonitoringController.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Monitoring</Filter>
     </ClCompile>
     <ClCompile Include="Monitoring\MonitoringViewTests.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Monitoring</Filter>
     </ClCompile>
     <ClCompile Include="Monitoring\MonitoringView.cpp">
-      <Filter>소스 파일</Filter>
+      <Filter>Monitoring</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductionLine\ProductionJob.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductionLine\ProductionQueueModel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductionLine\ProductionLineController.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="ProductionLine\ProductionLineView.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\DateFormat.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="OrderClerk\OrderModel.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="OrderClerk\OrderController.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="OrderClerk\OrderView.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\OrderStatus.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\Sample.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\Order.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\Clock.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\JsonValue.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\FileRepository.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleClerk\SampleModel.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\Result.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleClerk\SampleController.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="SampleClerk\SampleView.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Testing\DummyDataGenerator.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
     </ClInclude>
     <ClInclude Include="Common\ConsoleInput.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleClerk\SampleModel.h">
+      <Filter>SampleClerk</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleClerk\SampleController.h">
+      <Filter>SampleClerk</Filter>
+    </ClInclude>
+    <ClInclude Include="SampleClerk\SampleView.h">
+      <Filter>SampleClerk</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderClerk\OrderModel.h">
+      <Filter>OrderClerk</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderClerk\OrderController.h">
+      <Filter>OrderClerk</Filter>
+    </ClInclude>
+    <ClInclude Include="OrderClerk\OrderView.h">
+      <Filter>OrderClerk</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionLine\ProductionJob.h">
+      <Filter>ProductionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionLine\ProductionQueueModel.h">
+      <Filter>ProductionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionLine\ProductionLineController.h">
+      <Filter>ProductionLine</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionLine\ProductionLineView.h">
+      <Filter>ProductionLine</Filter>
     </ClInclude>
     <ClInclude Include="ProductionClerk\ProductionClerkController.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>ProductionClerk</Filter>
     </ClInclude>
     <ClInclude Include="ProductionClerk\ProductionClerkView.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>ProductionClerk</Filter>
     </ClInclude>
     <ClInclude Include="Monitoring\MonitoringController.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Monitoring</Filter>
     </ClInclude>
     <ClInclude Include="Monitoring\MonitoringView.h">
-      <Filter>헤더 파일</Filter>
+      <Filter>Monitoring</Filter>
+    </ClInclude>
+    <ClInclude Include="Testing\DummyDataGenerator.h">
+      <Filter>Testing</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
