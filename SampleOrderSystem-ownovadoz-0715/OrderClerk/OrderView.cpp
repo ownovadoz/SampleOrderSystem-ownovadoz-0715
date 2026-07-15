@@ -1,35 +1,44 @@
 #include "OrderView.h"
+#include "../Common/ConsoleInput.h"
 
 namespace orderclerk {
 
 OrderView::OrderView(OrderController& controller) : controller_(controller) {}
 
 void OrderView::showReserveScreen(std::istream& in, std::ostream& out) {
-    out << "시료 ID > ";
-    std::string sampleId;
-    std::getline(in, sampleId);
+    out << "시료 ID (취소: q) > ";
+    auto sampleIdInput = common::readLine(in);
+    if (!sampleIdInput.ok || sampleIdInput.cancelled) {
+        out << "취소되었습니다\n";
+        return;
+    }
 
-    out << "고객명 > ";
-    std::string customerName;
-    std::getline(in, customerName);
+    out << "고객명 (취소: q) > ";
+    auto customerNameInput = common::readLine(in);
+    if (!customerNameInput.ok || customerNameInput.cancelled) {
+        out << "취소되었습니다\n";
+        return;
+    }
 
-    out << "주문 수량 > ";
-    int quantity = 0;
-    in >> quantity;
-    in.ignore();
+    out << "주문 수량 (취소: q) > ";
+    auto quantityInput = common::readInt(in);
+    if (!quantityInput.ok) {
+        out << (quantityInput.cancelled ? "취소되었습니다\n" : "잘못된 입력입니다\n");
+        return;
+    }
 
-    auto result = controller_.createOrder(sampleId, customerName, quantity);
+    auto result = controller_.createOrder(sampleIdInput.text, customerNameInput.text, quantityInput.value);
     if (!result.ok) {
         out << "접수 실패: " << result.error << "\n";
         return;
     }
 
-    auto sample = controller_.getSampleInfo(sampleId);
+    auto sample = controller_.getSampleInfo(sampleIdInput.text);
     out << "예약 접수 완료\n";
     out << "주문번호 " << result.orderId << "\n";
-    out << "시료 " << (sample.has_value() ? sample->name : sampleId) << "\n";
-    out << "고객 " << customerName << "\n";
-    out << "수량 " << quantity << " ea\n";
+    out << "시료 " << (sample.has_value() ? sample->name : sampleIdInput.text) << "\n";
+    out << "고객 " << customerNameInput.text << "\n";
+    out << "수량 " << quantityInput.value << " ea\n";
     out << "현재 상태 RESERVED\n";
 }
 

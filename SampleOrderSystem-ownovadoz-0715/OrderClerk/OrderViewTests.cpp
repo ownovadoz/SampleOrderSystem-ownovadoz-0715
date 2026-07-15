@@ -44,3 +44,38 @@ TEST(OrderClerkTest, OrderView_ReserveScreen_UnknownSample_ShowsError) {
 
     EXPECT_NE(out.str().find("접수 실패"), std::string::npos);
 }
+
+TEST(OrderClerkTest, OrderView_ReserveScreen_CancelledAtFirstPrompt_DoesNotCreateOrder) {
+    SampleModel sampleModel("orderview_test_samples3.json");
+    SampleController sampleController(sampleModel);
+    OrderModel orderModel("orderview_test_orders3.json");
+    FakeClock clock(std::chrono::system_clock::from_time_t(0));
+    OrderController orderController(orderModel, sampleController, clock);
+    OrderView view(orderController);
+
+    std::istringstream in("q\n");
+    std::ostringstream out;
+    view.showReserveScreen(in, out);
+
+    EXPECT_NE(out.str().find("취소"), std::string::npos);
+    EXPECT_TRUE(orderController.listOrdersByStatus(OrderStatus::RESERVED).empty());
+}
+
+TEST(OrderClerkTest, OrderView_ReserveScreen_InvalidQuantity_ShowsErrorWithoutCrashing) {
+    SampleModel sampleModel("orderview_test_samples4.json");
+    SampleController sampleController(sampleModel);
+    DummyDataGenerator gen;
+    auto sample = gen.sample(1);
+    sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
+    OrderModel orderModel("orderview_test_orders4.json");
+    FakeClock clock(std::chrono::system_clock::from_time_t(0));
+    OrderController orderController(orderModel, sampleController, clock);
+    OrderView view(orderController);
+
+    std::istringstream in(sample.id + "\n삼성전자\n이상한값\n");
+    std::ostringstream out;
+    view.showReserveScreen(in, out);
+
+    EXPECT_NE(out.str().find("잘못된 입력"), std::string::npos);
+    EXPECT_TRUE(orderController.listOrdersByStatus(OrderStatus::RESERVED).empty());
+}
