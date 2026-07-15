@@ -11,7 +11,12 @@
 `sampleclerk::SampleController&`와 `common::IClock&`를 주입받는다.
 
 **Tech Stack:** C++20. `common::Order`, `common::OrderStatus`, `common::IClock`/`FakeClock`,
-`sampleclerk::SampleController`(Sample Clerk 플랜 산출물), `MicroTest.h` 재사용.
+`sampleclerk::SampleController`(Sample Clerk 플랜 산출물).
+
+> ⚠️ **테스트 하네스 변경 안내**: Foundation이 gmock/gtest(NuGet, 단일 앱 프로젝트)로 바뀌었다
+> (`docs/superpowers/plans/2026-07-15-foundation.md` 참고). 아래 스텝에서 `TEST_CASE`/`REQUIRE`/
+> `MicroTest.h`/별도 `.Tests` 프로젝트가 나오면 `2026-07-15-sample-clerk.md` 상단의 변경 안내와 동일하게
+> `TEST`/`EXPECT_*`/`<gtest/gtest.h>`/단일 앱 프로젝트로 치환해서 적용한다.
 
 ## Global Constraints
 

@@ -11,7 +11,21 @@
 인메모리 상태를 전담하고, Controller는 검증/업무 로직만 담당하며 자기 Model만 호출한다. View는 콘솔
 입출력을 스트림(`std::istream&`/`std::ostream&`)으로 주입받아 테스트 가능하게 만든다.
 
-**Tech Stack:** C++20, Foundation 단계에서 만든 `common::Sample`, `common::Duration`, `MicroTest.h` 재사용.
+**Tech Stack:** C++20, Foundation 단계에서 만든 `common::Sample`, `common::Duration` 재사용.
+
+> ⚠️ **테스트 하네스 변경 안내**: 이 플랜 작성 이후 Foundation이 자체 제작 `MicroTest.h` + 별도 Tests
+> 프로젝트에서 **gmock/gtest(NuGet, 앱 프로젝트에 이미 추가됨) + 단일 프로젝트**로 바뀌었다
+> (`docs/superpowers/plans/2026-07-15-foundation.md` 참고). 아래 스텝을 그대로 따르되 다음 3가지만
+> 바꿔서 적용한다:
+> 1. `#include "../Testing/MicroTest.h"` → `#include <gtest/gtest.h>`
+> 2. `TEST_CASE(이름) { ... }` → `TEST(SampleClerkTest, 이름) { ... }`, `REQUIRE(expr)` → `EXPECT_TRUE(expr)`
+>    (동등 비교는 `EXPECT_EQ`가 더 적합하면 그것을 사용)
+> 3. 테스트 파일과 그 안의 include 경로는 별도 `.Tests` 프로젝트가 아니라 **이 앱 프로젝트 안에 그대로**
+>    둔다 (예: `SampleOrderSystem-ownovadoz-0715.Tests/SampleClerk/SampleModelTests.cpp` →
+>    `SampleOrderSystem-ownovadoz-0715/SampleClerk/SampleModelTests.cpp`, `#include
+>    "../../SampleOrderSystem-ownovadoz-0715/SampleClerk/SampleModel.h"` → `#include "SampleModel.h"`).
+>    `.Tests.vcxproj`/`.Tests.vcxproj.filters` 관련 스텝은 전부 건너뛰고, 같은 파일들을 앱 프로젝트의
+>    `.vcxproj`/`.vcxproj.filters`에만 한 번 등록한다.
 
 ## Global Constraints
 

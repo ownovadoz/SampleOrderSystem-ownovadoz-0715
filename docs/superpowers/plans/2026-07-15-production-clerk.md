@@ -3,8 +3,10 @@
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 > 이 플랜은 시간 절약을 위해 이전 플랜들보다 간결하게 작성했다. 파일 등록(vcxproj/.filters) 방식,
-> `Result` 패턴, `MicroTest` 테스트 하네스는 이전 3개 플랜(Sample/Order Clerk, Production Line)과 완전히
-> 동일하므로 여기서는 반복하지 않는다 — 그 플랜들의 Step 패턴을 그대로 따라 파일을 추가하면 된다.
+> `Result` 패턴은 이전 3개 플랜(Sample/Order Clerk, Production Line)과 완전히 동일하므로 여기서는
+> 반복하지 않는다 — 그 플랜들의 Step 패턴을 그대로 따라 파일을 추가하면 된다. 테스트는 gmock/gtest
+> (`TEST`/`EXPECT_*`, `<gtest/gtest.h>`)로 작성하고 이 앱 프로젝트에 그대로 추가한다 (별도 Tests 프로젝트
+> 없음) — 자세한 배경은 `docs/superpowers/plans/2026-07-15-foundation.md` 참고.
 
 **Goal:** 주문 승인/거절, 출고 처리 메뉴. 이 모듈은 자체 저장 데이터가 없고, 시료·주문·생산라인 세 모듈의
 공개 API만 호출하는 오케스트레이션 계층이다 (스펙 4.4절/5장/6장/10.5~10.6절).

@@ -2,7 +2,9 @@
 
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
-> 이전 플랜들과 동일하게 간결하게 작성. 파일 등록/테스트 하네스 방식은 반복하지 않는다.
+> 이전 플랜들과 동일하게 간결하게 작성. 파일 등록 방식은 반복하지 않는다. 테스트는 gmock/gtest
+> (`TEST`/`EXPECT_*`)로 작성하고 이 앱 프로젝트에 그대로 추가한다 (별도 Tests 프로젝트 없음) — 자세한
+> 배경은 `docs/superpowers/plans/2026-07-15-foundation.md` 참고.
 
 **Goal:** 주문량/재고량 확인 메뉴. 자체 저장 데이터 없이 시료 담당자·주문 담당자의 공개 API만 읽는
 읽기 전용 모듈 (스펙 4.5절/5장/10.7~10.8절). 5개 모듈 중 가장 단순하다.
