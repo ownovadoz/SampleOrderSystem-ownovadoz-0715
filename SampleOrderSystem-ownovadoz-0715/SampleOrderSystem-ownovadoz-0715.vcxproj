@@ -151,6 +151,7 @@
     <ClCompile Include="Common\Clock.cpp" />
     <ClCompile Include="SampleClerk\SampleModelTests.cpp" />
     <ClCompile Include="SampleClerk\SampleModel.cpp" />
+    <ClCompile Include="SampleClerk\SampleControllerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
@@ -160,6 +161,7 @@
     <ClInclude Include="Common\Clock.h" />
     <ClInclude Include="Common\StringUtil.h" />
     <ClInclude Include="SampleClerk\SampleModel.h" />
+    <ClInclude Include="Common\Result.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

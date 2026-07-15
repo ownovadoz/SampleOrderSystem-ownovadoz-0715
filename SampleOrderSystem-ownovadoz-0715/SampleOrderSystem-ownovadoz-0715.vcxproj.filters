@@ -33,6 +33,9 @@
     <ClCompile Include="SampleClerk\SampleModel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="SampleClerk\SampleControllerTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
@@ -54,6 +57,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="SampleClerk\SampleModel.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Common\Result.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
