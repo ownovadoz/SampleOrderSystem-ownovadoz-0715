@@ -93,6 +93,9 @@
     <ClCompile Include="ProductionClerk\ProductionClerkControllerTests.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ProductionClerk\ProductionClerkController.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
@@ -153,6 +156,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="Testing\DummyDataGenerator.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionClerk\ProductionClerkController.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
