@@ -53,4 +53,24 @@ IntResult readInt(std::istream& in) {
     }
 }
 
+DoubleResult readDouble(std::istream& in) {
+    auto line = readLine(in);
+    if (!line.ok) {
+        return DoubleResult{false, false, 0.0};
+    }
+    if (line.cancelled) {
+        return DoubleResult{false, true, 0.0};
+    }
+    try {
+        size_t consumed = 0;
+        double value = std::stod(line.text, &consumed);
+        if (consumed != line.text.size()) {
+            return DoubleResult{false, false, 0.0};
+        }
+        return DoubleResult{true, false, value};
+    } catch (const std::exception&) {
+        return DoubleResult{false, false, 0.0};
+    }
+}
+
 } // namespace common

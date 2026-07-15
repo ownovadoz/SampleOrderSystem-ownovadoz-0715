@@ -23,4 +23,12 @@ struct IntResult {
 
 IntResult readInt(std::istream& in);
 
+struct DoubleResult {
+    bool ok;
+    bool cancelled;
+    double value;
+};
+
+DoubleResult readDouble(std::istream& in);
+
 } // namespace common

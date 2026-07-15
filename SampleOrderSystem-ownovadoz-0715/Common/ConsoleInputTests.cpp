@@ -61,3 +61,23 @@ TEST(ConsoleInputTest, ReadInt_NextReadStillWorks_AfterGarbage) {
     EXPECT_TRUE(second.ok);
     EXPECT_EQ(second.value, 7);
 }
+
+TEST(ConsoleInputTest, ReadDouble_ValidNumber_ReturnsValue) {
+    std::istringstream in("0.92\n");
+    auto result = readDouble(in);
+    EXPECT_TRUE(result.ok);
+    EXPECT_EQ(result.value, 0.92);
+}
+
+TEST(ConsoleInputTest, ReadDouble_Garbage_NotOkButDoesNotThrow) {
+    std::istringstream in("이상한값\n");
+    auto result = readDouble(in);
+    EXPECT_FALSE(result.ok);
+    EXPECT_FALSE(result.cancelled);
+}
+
+TEST(ConsoleInputTest, ReadDouble_Q_IsCancelled) {
+    std::istringstream in("q\n");
+    auto result = readDouble(in);
+    EXPECT_TRUE(result.cancelled);
+}
