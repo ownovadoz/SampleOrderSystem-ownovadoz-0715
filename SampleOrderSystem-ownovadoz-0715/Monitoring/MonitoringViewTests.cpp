@@ -10,9 +10,9 @@ using namespace orderclerk;
 using namespace common;
 
 TEST(MonitoringTest, OrderCountsScreen_NoOrders_ShowsZeroCounts) {
-    SampleModel sampleModel("monview_test_samples1.dat");
+    SampleModel sampleModel("monview_test_samples1.json");
     SampleController sampleController(sampleModel);
-    OrderModel orderModel("monview_test_orders1.dat");
+    OrderModel orderModel("monview_test_orders1.json");
     FakeClock clock(std::chrono::system_clock::from_time_t(0));
     OrderController orderController(orderModel, sampleController, clock);
     MonitoringController monitoringController(sampleController, orderController);
@@ -25,9 +25,9 @@ TEST(MonitoringTest, OrderCountsScreen_NoOrders_ShowsZeroCounts) {
 }
 
 TEST(MonitoringTest, StockOverviewScreen_NoSamples_ShowsEmptyMessage) {
-    SampleModel sampleModel("monview_test_samples2.dat");
+    SampleModel sampleModel("monview_test_samples2.json");
     SampleController sampleController(sampleModel);
-    OrderModel orderModel("monview_test_orders2.dat");
+    OrderModel orderModel("monview_test_orders2.json");
     FakeClock clock(std::chrono::system_clock::from_time_t(0));
     OrderController orderController(orderModel, sampleController, clock);
     MonitoringController monitoringController(sampleController, orderController);
@@ -39,9 +39,9 @@ TEST(MonitoringTest, StockOverviewScreen_NoSamples_ShowsEmptyMessage) {
 }
 
 TEST(MonitoringTest, StockSearchScreen_NoResults_ShowsMessage) {
-    SampleModel sampleModel("monview_test_samples3.dat");
+    SampleModel sampleModel("monview_test_samples3.json");
     SampleController sampleController(sampleModel);
-    OrderModel orderModel("monview_test_orders3.dat");
+    OrderModel orderModel("monview_test_orders3.json");
     FakeClock clock(std::chrono::system_clock::from_time_t(0));
     OrderController orderController(orderModel, sampleController, clock);
     MonitoringController monitoringController(sampleController, orderController);

@@ -10,12 +10,12 @@ using namespace common;
 using testing_support::DummyDataGenerator;
 
 TEST(OrderClerkTest, OrderView_ReserveScreen_SuccessShowsOrderInfo) {
-    SampleModel sampleModel("orderview_test_samples1.dat");
+    SampleModel sampleModel("orderview_test_samples1.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
-    OrderModel orderModel("orderview_test_orders1.dat");
+    OrderModel orderModel("orderview_test_orders1.json");
     FakeClock clock(std::chrono::system_clock::from_time_t(0));
     OrderController orderController(orderModel, sampleController, clock);
     OrderView view(orderController);
@@ -31,9 +31,9 @@ TEST(OrderClerkTest, OrderView_ReserveScreen_SuccessShowsOrderInfo) {
 }
 
 TEST(OrderClerkTest, OrderView_ReserveScreen_UnknownSample_ShowsError) {
-    SampleModel sampleModel("orderview_test_samples2.dat");
+    SampleModel sampleModel("orderview_test_samples2.json");
     SampleController sampleController(sampleModel);
-    OrderModel orderModel("orderview_test_orders2.dat");
+    OrderModel orderModel("orderview_test_orders2.json");
     FakeClock clock(std::chrono::system_clock::from_time_t(0));
     OrderController orderController(orderModel, sampleController, clock);
     OrderView view(orderController);

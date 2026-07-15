@@ -8,13 +8,13 @@ using namespace common;
 using testing_support::DummyDataGenerator;
 
 TEST(SampleClerkTest, SampleModel_LoadFromMissingFile_StartsEmpty) {
-    SampleModel model("nonexistent_samples_test.dat");
+    SampleModel model("nonexistent_samples_test.json");
     model.load();
     EXPECT_TRUE(model.findAll().empty());
 }
 
 TEST(SampleClerkTest, SampleModel_InsertAndFind) {
-    SampleModel model("samples_test_insert.dat");
+    SampleModel model("samples_test_insert.json");
     DummyDataGenerator gen;
     auto s = gen.sample(1);
     s.stock = 100;
@@ -26,7 +26,7 @@ TEST(SampleClerkTest, SampleModel_InsertAndFind) {
 }
 
 TEST(SampleClerkTest, SampleModel_SaveThenLoad_RoundTrips) {
-    const std::string path = "samples_test_roundtrip.dat";
+    const std::string path = "samples_test_roundtrip.json";
     std::remove(path.c_str());
     DummyDataGenerator gen;
     auto s1 = gen.sample(1);
@@ -52,7 +52,7 @@ TEST(SampleClerkTest, SampleModel_SaveThenLoad_RoundTrips) {
 }
 
 TEST(SampleClerkTest, SampleModel_UpdateStock_ChangesValue) {
-    SampleModel model("samples_test_update.dat");
+    SampleModel model("samples_test_update.json");
     DummyDataGenerator gen;
     auto s = gen.sample(1);
     s.stock = 10;

@@ -14,13 +14,13 @@ TimePoint dayZero() { return std::chrono::system_clock::from_time_t(0); } // 197
 }
 
 TEST(OrderClerkTest, OrderController_CreateOrder_Succeeds) {
-    SampleModel sampleModel("order_ctrl_test_samples1.dat");
+    SampleModel sampleModel("order_ctrl_test_samples1.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
 
-    OrderModel orderModel("order_ctrl_test_orders1.dat");
+    OrderModel orderModel("order_ctrl_test_orders1.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 
@@ -35,9 +35,9 @@ TEST(OrderClerkTest, OrderController_CreateOrder_Succeeds) {
 }
 
 TEST(OrderClerkTest, OrderController_CreateOrder_UnknownSample_Fails) {
-    SampleModel sampleModel("order_ctrl_test_samples2.dat");
+    SampleModel sampleModel("order_ctrl_test_samples2.json");
     SampleController sampleController(sampleModel);
-    OrderModel orderModel("order_ctrl_test_orders2.dat");
+    OrderModel orderModel("order_ctrl_test_orders2.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 
@@ -46,12 +46,12 @@ TEST(OrderClerkTest, OrderController_CreateOrder_UnknownSample_Fails) {
 }
 
 TEST(OrderClerkTest, OrderController_CreateOrder_InvalidQuantity_Fails) {
-    SampleModel sampleModel("order_ctrl_test_samples3.dat");
+    SampleModel sampleModel("order_ctrl_test_samples3.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
-    OrderModel orderModel("order_ctrl_test_orders3.dat");
+    OrderModel orderModel("order_ctrl_test_orders3.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 
@@ -62,12 +62,12 @@ TEST(OrderClerkTest, OrderController_CreateOrder_InvalidQuantity_Fails) {
 }
 
 TEST(OrderClerkTest, OrderController_SequenceIncrementsWithinSameDay) {
-    SampleModel sampleModel("order_ctrl_test_samples4.dat");
+    SampleModel sampleModel("order_ctrl_test_samples4.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
-    OrderModel orderModel("order_ctrl_test_orders4.dat");
+    OrderModel orderModel("order_ctrl_test_orders4.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 
@@ -78,12 +78,12 @@ TEST(OrderClerkTest, OrderController_SequenceIncrementsWithinSameDay) {
 }
 
 TEST(OrderClerkTest, OrderController_SequenceResetsOnNewDay) {
-    SampleModel sampleModel("order_ctrl_test_samples5.dat");
+    SampleModel sampleModel("order_ctrl_test_samples5.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
-    OrderModel orderModel("order_ctrl_test_orders5.dat");
+    OrderModel orderModel("order_ctrl_test_orders5.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 
@@ -94,12 +94,12 @@ TEST(OrderClerkTest, OrderController_SequenceResetsOnNewDay) {
 }
 
 TEST(OrderClerkTest, OrderController_GetReservedQuantity_SumsConfirmedAndProducingOnly) {
-    SampleModel sampleModel("order_ctrl_test_samples6.dat");
+    SampleModel sampleModel("order_ctrl_test_samples6.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
-    OrderModel orderModel("order_ctrl_test_orders6.dat");
+    OrderModel orderModel("order_ctrl_test_orders6.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 

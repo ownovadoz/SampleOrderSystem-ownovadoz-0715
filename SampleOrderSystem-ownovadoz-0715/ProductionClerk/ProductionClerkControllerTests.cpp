@@ -18,19 +18,19 @@ TimePoint dayZero() { return std::chrono::system_clock::from_time_t(0); }
 }
 
 TEST(ProductionClerkTest, Approve_WithSufficientStock_SetsConfirmed) {
-    SampleModel sampleModel("pc_test_samples1.dat");
+    SampleModel sampleModel("pc_test_samples1.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
     sampleController.increaseStock(sample.id, 100); // 재고 충분
 
-    OrderModel orderModel("pc_test_orders1.dat");
+    OrderModel orderModel("pc_test_orders1.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder(sample.id, "삼성전자", 10);
 
-    ProductionQueueModel queueModel("pc_test_queue1.dat");
+    ProductionQueueModel queueModel("pc_test_queue1.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
 
     ProductionClerkController pcController(sampleController, orderController, plController);
@@ -42,19 +42,19 @@ TEST(ProductionClerkTest, Approve_WithSufficientStock_SetsConfirmed) {
 }
 
 TEST(ProductionClerkTest, Approve_WithInsufficientStock_SetsProducingAndEnqueues) {
-    SampleModel sampleModel("pc_test_samples2.dat");
+    SampleModel sampleModel("pc_test_samples2.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
     // 재고 0 (부족)
 
-    OrderModel orderModel("pc_test_orders2.dat");
+    OrderModel orderModel("pc_test_orders2.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder(sample.id, "삼성전자", 10);
 
-    ProductionQueueModel queueModel("pc_test_queue2.dat");
+    ProductionQueueModel queueModel("pc_test_queue2.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
 
     ProductionClerkController pcController(sampleController, orderController, plController);
@@ -70,18 +70,18 @@ TEST(ProductionClerkTest, Approve_WithInsufficientStock_SetsProducingAndEnqueues
 }
 
 TEST(ProductionClerkTest, Reject_SetsRejected) {
-    SampleModel sampleModel("pc_test_samples3.dat");
+    SampleModel sampleModel("pc_test_samples3.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
 
-    OrderModel orderModel("pc_test_orders3.dat");
+    OrderModel orderModel("pc_test_orders3.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder(sample.id, "삼성전자", 10);
 
-    ProductionQueueModel queueModel("pc_test_queue3.dat");
+    ProductionQueueModel queueModel("pc_test_queue3.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
     ProductionClerkController pcController(sampleController, orderController, plController);
 
@@ -93,20 +93,20 @@ TEST(ProductionClerkTest, Reject_SetsRejected) {
 }
 
 TEST(ProductionClerkTest, Ship_ConfirmedOrder_SetsReleaseAndDecreasesStock) {
-    SampleModel sampleModel("pc_test_samples4.dat");
+    SampleModel sampleModel("pc_test_samples4.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
     sampleController.increaseStock(sample.id, 100);
 
-    OrderModel orderModel("pc_test_orders4.dat");
+    OrderModel orderModel("pc_test_orders4.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder(sample.id, "삼성전자", 10);
     orderController.setOrderStatus(order.orderId, OrderStatus::CONFIRMED);
 
-    ProductionQueueModel queueModel("pc_test_queue4.dat");
+    ProductionQueueModel queueModel("pc_test_queue4.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
     ProductionClerkController pcController(sampleController, orderController, plController);
 
@@ -120,18 +120,18 @@ TEST(ProductionClerkTest, Ship_ConfirmedOrder_SetsReleaseAndDecreasesStock) {
 }
 
 TEST(ProductionClerkTest, Ship_NonConfirmedOrder_Fails) {
-    SampleModel sampleModel("pc_test_samples5.dat");
+    SampleModel sampleModel("pc_test_samples5.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
 
-    OrderModel orderModel("pc_test_orders5.dat");
+    OrderModel orderModel("pc_test_orders5.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder(sample.id, "삼성전자", 10); // RESERVED 상태 그대로
 
-    ProductionQueueModel queueModel("pc_test_queue5.dat");
+    ProductionQueueModel queueModel("pc_test_queue5.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
     ProductionClerkController pcController(sampleController, orderController, plController);
 

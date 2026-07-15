@@ -8,13 +8,13 @@ using namespace common;
 using testing_support::DummyDataGenerator;
 
 TEST(OrderClerkTest, OrderModel_LoadFromMissingFile_StartsEmpty) {
-    OrderModel model("nonexistent_orders_test.dat");
+    OrderModel model("nonexistent_orders_test.json");
     model.load();
     EXPECT_TRUE(model.findAll().empty());
 }
 
 TEST(OrderClerkTest, OrderModel_InsertAndFind) {
-    OrderModel model("orders_test_insert.dat");
+    OrderModel model("orders_test_insert.json");
     DummyDataGenerator gen;
     auto o = gen.order(1, "S-001", 100);
     model.insert(o);
@@ -25,7 +25,7 @@ TEST(OrderClerkTest, OrderModel_InsertAndFind) {
 }
 
 TEST(OrderClerkTest, OrderModel_SaveThenLoad_RoundTrips) {
-    const std::string path = "orders_test_roundtrip.dat";
+    const std::string path = "orders_test_roundtrip.json";
     std::remove(path.c_str());
     DummyDataGenerator gen;
     auto o1 = gen.order(1, "S-001", 100, OrderStatus::RESERVED);
@@ -48,7 +48,7 @@ TEST(OrderClerkTest, OrderModel_SaveThenLoad_RoundTrips) {
 }
 
 TEST(OrderClerkTest, OrderModel_UpdateStatus_ChangesValue) {
-    OrderModel model("orders_test_update.dat");
+    OrderModel model("orders_test_update.json");
     DummyDataGenerator gen;
     auto o = gen.order(1, "S-001", 100);
     model.insert(o);

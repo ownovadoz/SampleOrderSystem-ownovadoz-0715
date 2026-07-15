@@ -16,13 +16,13 @@ TimePoint dayZero() { return std::chrono::system_clock::from_time_t(0); }
 }
 
 TEST(MonitoringTest, GetOrderCountsByStatus_ExcludesRejectedAndCountsCorrectly) {
-    SampleModel sampleModel("mon_test_samples1.dat");
+    SampleModel sampleModel("mon_test_samples1.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
     auto sample = gen.sample(1);
     sampleController.registerSample(sample.id, sample.name, sample.avgProductionTime, sample.yield);
 
-    OrderModel orderModel("mon_test_orders1.dat");
+    OrderModel orderModel("mon_test_orders1.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 
@@ -47,7 +47,7 @@ TEST(MonitoringTest, GetOrderCountsByStatus_ExcludesRejectedAndCountsCorrectly) 
 }
 
 TEST(MonitoringTest, GetStockOverview_LabelsDepletedShortageAndSufficient) {
-    SampleModel sampleModel("mon_test_samples2.dat");
+    SampleModel sampleModel("mon_test_samples2.json");
     SampleController sampleController(sampleModel);
     DummyDataGenerator gen;
 
@@ -63,7 +63,7 @@ TEST(MonitoringTest, GetStockOverview_LabelsDepletedShortageAndSufficient) {
     sampleController.registerSample(sufficient.id, sufficient.name, sufficient.avgProductionTime, sufficient.yield);
     sampleController.increaseStock(sufficient.id, 100); // 재고 100
 
-    OrderModel orderModel("mon_test_orders2.dat");
+    OrderModel orderModel("mon_test_orders2.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     orderController.createOrder(shortage.id, "고객", 10); // 수요 10 > 재고 5 -> 부족
@@ -84,12 +84,12 @@ TEST(MonitoringTest, GetStockOverview_LabelsDepletedShortageAndSufficient) {
 }
 
 TEST(MonitoringTest, SearchStockOverview_CaseInsensitiveSubstringOnNameOrId) {
-    SampleModel sampleModel("mon_test_samples3.dat");
+    SampleModel sampleModel("mon_test_samples3.json");
     SampleController sampleController(sampleModel);
     sampleController.registerSample("S-777", "Silicon Wafer", Duration(1800), 0.9);
     sampleController.registerSample("S-888", "GaN Epitaxial", Duration(1200), 0.8);
 
-    OrderModel orderModel("mon_test_orders3.dat");
+    OrderModel orderModel("mon_test_orders3.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
 

@@ -14,17 +14,17 @@ TimePoint dayZero() { return std::chrono::system_clock::from_time_t(0); }
 }
 
 TEST(ProductionLineTest, ProductionLineController_Enqueue_StartsImmediatelyWhenQueueEmpty) {
-    SampleModel sampleModel("pl_test_samples1.dat");
+    SampleModel sampleModel("pl_test_samples1.json");
     SampleController sampleController(sampleModel);
     sampleController.registerSample("S-001", "실리콘 웨이퍼", Duration(60), 1.0);
 
-    OrderModel orderModel("pl_test_orders1.dat");
+    OrderModel orderModel("pl_test_orders1.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder("S-001", "삼성전자", 10);
     orderController.setOrderStatus(order.orderId, OrderStatus::PRODUCING);
 
-    ProductionQueueModel queueModel("pl_test_queue1.dat");
+    ProductionQueueModel queueModel("pl_test_queue1.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
 
     plController.enqueue("S-001", 10, order.orderId);
@@ -36,17 +36,17 @@ TEST(ProductionLineTest, ProductionLineController_Enqueue_StartsImmediatelyWhenQ
 }
 
 TEST(ProductionLineTest, ProductionLineController_ProcessCompletion_UpdatesStockAndOrderStatus) {
-    SampleModel sampleModel("pl_test_samples2.dat");
+    SampleModel sampleModel("pl_test_samples2.json");
     SampleController sampleController(sampleModel);
     sampleController.registerSample("S-001", "실리콘 웨이퍼", Duration(60), 1.0);
 
-    OrderModel orderModel("pl_test_orders2.dat");
+    OrderModel orderModel("pl_test_orders2.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order = orderController.createOrder("S-001", "삼성전자", 10);
     orderController.setOrderStatus(order.orderId, OrderStatus::PRODUCING);
 
-    ProductionQueueModel queueModel("pl_test_queue2.dat");
+    ProductionQueueModel queueModel("pl_test_queue2.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
     plController.enqueue("S-001", 10, order.orderId); // 실생산량 10, 총 소요 600초
 
@@ -60,11 +60,11 @@ TEST(ProductionLineTest, ProductionLineController_ProcessCompletion_UpdatesStock
 }
 
 TEST(ProductionLineTest, ProductionLineController_MultipleCompletions_ProcessedInFifoOrder) {
-    SampleModel sampleModel("pl_test_samples3.dat");
+    SampleModel sampleModel("pl_test_samples3.json");
     SampleController sampleController(sampleModel);
     sampleController.registerSample("S-001", "실리콘 웨이퍼", Duration(60), 1.0);
 
-    OrderModel orderModel("pl_test_orders3.dat");
+    OrderModel orderModel("pl_test_orders3.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order1 = orderController.createOrder("S-001", "A", 5);  // 실생산량 5, 300초
@@ -72,7 +72,7 @@ TEST(ProductionLineTest, ProductionLineController_MultipleCompletions_ProcessedI
     orderController.setOrderStatus(order1.orderId, OrderStatus::PRODUCING);
     orderController.setOrderStatus(order2.orderId, OrderStatus::PRODUCING);
 
-    ProductionQueueModel queueModel("pl_test_queue3.dat");
+    ProductionQueueModel queueModel("pl_test_queue3.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
     plController.enqueue("S-001", 5, order1.orderId);
     plController.enqueue("S-001", 3, order2.orderId);
@@ -87,11 +87,11 @@ TEST(ProductionLineTest, ProductionLineController_MultipleCompletions_ProcessedI
 }
 
 TEST(ProductionLineTest, ProductionLineController_GetQueue_ShowsWaitingJobsExcludingCurrent) {
-    SampleModel sampleModel("pl_test_samples4.dat");
+    SampleModel sampleModel("pl_test_samples4.json");
     SampleController sampleController(sampleModel);
     sampleController.registerSample("S-001", "실리콘 웨이퍼", Duration(60), 1.0);
 
-    OrderModel orderModel("pl_test_orders4.dat");
+    OrderModel orderModel("pl_test_orders4.json");
     FakeClock clock(dayZero());
     OrderController orderController(orderModel, sampleController, clock);
     auto order1 = orderController.createOrder("S-001", "A", 5);
@@ -99,7 +99,7 @@ TEST(ProductionLineTest, ProductionLineController_GetQueue_ShowsWaitingJobsExclu
     orderController.setOrderStatus(order1.orderId, OrderStatus::PRODUCING);
     orderController.setOrderStatus(order2.orderId, OrderStatus::PRODUCING);
 
-    ProductionQueueModel queueModel("pl_test_queue4.dat");
+    ProductionQueueModel queueModel("pl_test_queue4.json");
     ProductionLineController plController(queueModel, sampleController, orderController, clock);
     plController.enqueue("S-001", 5, order1.orderId);
     plController.enqueue("S-001", 3, order2.orderId);

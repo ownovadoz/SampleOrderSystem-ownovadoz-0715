@@ -7,13 +7,13 @@ using namespace productionline;
 using namespace common;
 
 TEST(ProductionLineTest, ProductionQueueModel_LoadFromMissingFile_StartsEmpty) {
-    ProductionQueueModel model("nonexistent_queue_test.dat");
+    ProductionQueueModel model("nonexistent_queue_test.json");
     model.load();
     EXPECT_TRUE(model.empty());
 }
 
 TEST(ProductionLineTest, ProductionQueueModel_PushAndFrontAndPop) {
-    ProductionQueueModel model("queue_test_push.dat");
+    ProductionQueueModel model("queue_test_push.json");
     ProductionJob job{"ORD-1", "S-001", 10, 10, Duration(600), std::chrono::system_clock::from_time_t(1000)};
     model.pushBack(job);
     EXPECT_FALSE(model.empty());
@@ -23,7 +23,7 @@ TEST(ProductionLineTest, ProductionQueueModel_PushAndFrontAndPop) {
 }
 
 TEST(ProductionLineTest, ProductionQueueModel_SaveThenLoad_RoundTrips) {
-    const std::string path = "queue_test_roundtrip.dat";
+    const std::string path = "queue_test_roundtrip.json";
     std::remove(path.c_str());
     {
         ProductionQueueModel model(path);
