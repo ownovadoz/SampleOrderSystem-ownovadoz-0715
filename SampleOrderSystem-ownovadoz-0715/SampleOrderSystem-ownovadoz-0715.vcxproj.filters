@@ -102,6 +102,18 @@
     <ClCompile Include="ProductionClerk\ProductionClerkView.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Monitoring\MonitoringControllerTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Monitoring\MonitoringController.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Monitoring\MonitoringViewTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Monitoring\MonitoringView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
@@ -168,6 +180,12 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ProductionClerk\ProductionClerkView.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Monitoring\MonitoringController.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Monitoring\MonitoringView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
