@@ -9,6 +9,8 @@
 #include "ProductionLine/ProductionQueueModel.h"
 #include "ProductionLine/ProductionLineController.h"
 #include "ProductionLine/ProductionLineView.h"
+#include "ProductionClerk/ProductionClerkController.h"
+#include "ProductionClerk/ProductionClerkView.h"
 
 #ifdef _WIN32
 #include <windows.h>
@@ -21,6 +23,23 @@ void setupConsoleEncoding() {
     SetConsoleOutputCP(CP_UTF8);
     SetConsoleCP(CP_UTF8);
 #endif
+}
+
+void runShipmentMenu(productionclerk::ProductionClerkView& productionClerkView) {
+    while (true) {
+        std::cout << "\n[출고 처리]\n";
+        std::cout << "[1] 출고 처리  [0] 이전 메뉴\n";
+        std::cout << "선택 > ";
+        int choice = 0;
+        if (!(std::cin >> choice)) return;
+        std::cin.ignore();
+
+        if (choice == 1) {
+            productionClerkView.showShipmentScreen(std::cin, std::cout);
+        } else if (choice == 0) {
+            return;
+        }
+    }
 }
 
 } // namespace
@@ -58,10 +77,10 @@ void runSampleMenu(sampleclerk::SampleView& sampleView) {
     }
 }
 
-void runOrderMenu(orderclerk::OrderView& orderView) {
+void runOrderMenu(orderclerk::OrderView& orderView, productionclerk::ProductionClerkView& productionClerkView) {
     while (true) {
         std::cout << "\n[주문(접수/승인/거절)]\n";
-        std::cout << "[1] 시료 예약(주문 접수)  [2] 주문 승인 (준비 중)  [3] 주문 거절 (준비 중)  [0] 이전 메뉴\n";
+        std::cout << "[1] 시료 예약(주문 접수)  [2] 주문 승인  [3] 주문 거절  [0] 이전 메뉴\n";
         std::cout << "선택 > ";
         int choice = 0;
         if (!(std::cin >> choice)) return;
@@ -69,6 +88,10 @@ void runOrderMenu(orderclerk::OrderView& orderView) {
 
         if (choice == 1) {
             orderView.showReserveScreen(std::cin, std::cout);
+        } else if (choice == 2) {
+            productionClerkView.showApprovalScreen(std::cin, std::cout);
+        } else if (choice == 3) {
+            productionClerkView.showRejectionScreen(std::cin, std::cout);
         } else if (choice == 0) {
             return;
         }
@@ -116,6 +139,10 @@ int main() {
                                                                         orderController, systemClock);
     productionline::ProductionLineView productionLineView(productionLineController);
 
+    productionclerk::ProductionClerkController productionClerkController(sampleController, orderController,
+                                                                           productionLineController);
+    productionclerk::ProductionClerkView productionClerkView(productionClerkController);
+
     while (true) {
         std::cout << "\n반도체 시료 생산주문관리 시스템\n";
         std::cout << "[1] 시료 관리  [2] 주문(접수/승인/거절)  [3] 모니터링  [4] 출고 처리  [5] 생산 라인  [0] 종료\n";
@@ -127,11 +154,11 @@ int main() {
         if (choice == 1) {
             runSampleMenu(sampleView);
         } else if (choice == 2) {
-            runOrderMenu(orderView);
+            runOrderMenu(orderView, productionClerkView);
         } else if (choice == 3) {
             std::cout << "모니터링 메뉴는 아직 구현되지 않았습니다\n";
         } else if (choice == 4) {
-            std::cout << "출고 처리 메뉴는 아직 구현되지 않았습니다\n";
+            runShipmentMenu(productionClerkView);
         } else if (choice == 5) {
             runProductionLineMenu(productionLineView);
         } else if (choice == 0) {

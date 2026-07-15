@@ -173,6 +173,7 @@
     <ClCompile Include="ProductionClerk\ProductionClerkControllerTests.cpp" />
     <ClCompile Include="ProductionClerk\ProductionClerkController.cpp" />
     <ClCompile Include="ProductionClerk\ProductionClerkViewTests.cpp" />
+    <ClCompile Include="ProductionClerk\ProductionClerkView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="SampleClerk\SampleView.h" />
     <ClInclude Include="Testing\DummyDataGenerator.h" />
     <ClInclude Include="ProductionClerk\ProductionClerkController.h" />
+    <ClInclude Include="ProductionClerk\ProductionClerkView.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

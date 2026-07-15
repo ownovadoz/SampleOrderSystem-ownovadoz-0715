@@ -99,6 +99,9 @@
     <ClCompile Include="ProductionClerk\ProductionClerkViewTests.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ProductionClerk\ProductionClerkView.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">
@@ -162,6 +165,9 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="ProductionClerk\ProductionClerkController.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ProductionClerk\ProductionClerkView.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>
