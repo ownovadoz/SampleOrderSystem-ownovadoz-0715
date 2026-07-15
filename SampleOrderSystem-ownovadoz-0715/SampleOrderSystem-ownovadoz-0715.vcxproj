@@ -170,6 +170,7 @@
     <ClCompile Include="ProductionLine\ProductionLineController.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineViewTests.cpp" />
     <ClCompile Include="ProductionLine\ProductionLineView.cpp" />
+    <ClCompile Include="ProductionClerk\ProductionClerkControllerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
