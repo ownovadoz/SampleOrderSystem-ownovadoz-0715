@@ -1,8 +1,8 @@
 # HARNESS.md — 서브에이전트 기반 개발 하네스
 
 > **핵심 요약**: `docs/superpowers/plans/*.md`의 계획을 Task 단위로 서브에이전트에 위임해 개발한다. 각
-> Task는 (1) 실패하는 기본 테스트만 커밋 → (2) 그 테스트를 통과시키는 구현 커밋, 이 두 단계로 진행하며,
-> Task가 끝날 때마다 반드시 빌드가 성공해야 한다.
+> Task는 (1) 실패하는 기본 테스트만 커밋 → (2) 그 테스트를 통과시키는 구현 커밋, 이 두 단계로 진행한다.
+> 전체 빌드/테스트 확인은 Task마다 하지 않고, 한 계획 파일의 모든 Task가 끝난 뒤 한 번에 한다.
 
 이 문서는 이 저장소에서 코드를 작성하는 모든 에이전트(오케스트레이터 + 서브에이전트)가 따라야 하는 개발
 프로세스를 정의한다. 요구사항 자체(무엇을 만들지)는 `PRD.md`와 `docs/requirements/*.md`에 있고, 이 문서는
@@ -23,18 +23,21 @@
   넘어갈지 확인받는다. 단, 빌드/테스트가 실패해 서브에이전트가 스스로 해결하지 못하는 경우는 예외적으로
   즉시 사용자에게 알린다.
 
-## 2. Task 끝 = 항상 빌드 성공
+## 2. 빌드 확인은 계획(Plan) 단위로 한 번만
 
-각 Task의 마지막 Step은 항상 빌드 확인이어야 하며, 다음 조건을 만족해야 다음 Task로 진행한다.
-
-- `msbuild SampleOrderSystem-ownovadoz-0715.slnx /p:Configuration=Debug /p:Platform=x64` → `Build succeeded.`
-- `msbuild SampleOrderSystem-ownovadoz-0715.slnx /p:Configuration=Release /p:Platform=x64` → `Build succeeded.`
-- Debug 빌드 실행 파일이 gmock/gtest 테스트를 구동하며, 새로 추가한 테스트가 통과해야 한다
-  (`[ PASSED ]`, 종료 코드 0).
-- Release 빌드 실행 파일은 여전히 콘솔 메뉴 앱으로 정상 동작해야 한다 (테스트가 아니라 실제 메뉴가 뜸).
-- 위 네 가지 중 하나라도 실패한 상태로 다음 Task로 넘어가지 않는다. Win32 구성까지 매 Task마다 확인할
-  필요는 없지만, 최소 하나의 모듈이 끝나는 시점에는 Win32/x64 × Debug/Release 4개 구성 모두 빌드되는지
-  확인한다.
+- Task마다 전체 Debug/Release 빌드와 테스트 실행 결과를 확인하지 않는다. 같은 계획 파일 안의 여러 Task를
+  연달아 서브에이전트에 위임해 구현/커밋까지 진행하고, **그 계획 파일의 모든 Task가 끝난 시점에 한 번만**
+  아래 항목을 확인한다.
+  - `msbuild SampleOrderSystem-ownovadoz-0715.slnx /p:Configuration=Debug /p:Platform=x64` → `Build succeeded.`
+  - `msbuild SampleOrderSystem-ownovadoz-0715.slnx /p:Configuration=Release /p:Platform=x64` → `Build succeeded.`
+  - Debug 빌드 실행 파일이 gmock/gtest 테스트를 구동하며, 계획에 포함된 모든 테스트가 통과해야 한다
+    (`[ PASSED ]`, 종료 코드 0).
+  - Release 빌드 실행 파일은 여전히 콘솔 메뉴 앱으로 정상 동작해야 한다 (테스트가 아니라 실제 메뉴가 뜸).
+  - 최소 하나의 모듈이 끝나는 시점에는 Win32/x64 × Debug/Release 4개 구성 모두 빌드되는지 확인한다.
+- Task 안에서 Red/Green을 나눌 때 "컴파일이 실패하는지"/"테스트가 통과하는지"를 확인하기 위한 개별 빌드
+  시도는 TDD 절차상 당연히 필요하다 (3장 참고) — 이는 위에서 말하는 "계획 단위 전체 확인"과는 별개다.
+- 계획 단위 확인에서 실패가 나오면, 그 원인이 된 Task까지 거슬러 올라가 고친 뒤 다시 계획 단위로 전체
+  확인을 반복한다.
 
 ## 3. TDD — Red 커밋과 Green 커밋을 분리
 
