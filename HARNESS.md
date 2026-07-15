@@ -13,6 +13,8 @@
 
 - 실제 구현 작업은 `docs/superpowers/plans/*.md`에 이미 Task 단위로 쪼개져 있다. 오케스트레이터는 계획을
   직접 구현하지 않고, Task 단위로 서브에이전트(Agent tool)에 위임한다.
+- 커밋이 하나 생길 때마다(Red든 Green이든, 규칙 변경 커밋이든) 오케스트레이터는 곧바로 `git push`한다.
+  여러 커밋을 모아뒀다가 한 번에 push하지 않는다.
 - 한 Task를 위임할 때는 해당 Task의 `Files`/`Interfaces`/Step 목록 전체를 서브에이전트 프롬프트에 포함해
   자기완결적으로 만든다 — 서브에이전트는 계획 문서 전체나 이전 대화 맥락을 보지 못한다고 가정한다.
 - 같은 모듈 내에서 여러 Task가 같은 파일(`*.vcxproj`, `*.vcxproj.filters`, `main.cpp` 등)을 순차적으로
