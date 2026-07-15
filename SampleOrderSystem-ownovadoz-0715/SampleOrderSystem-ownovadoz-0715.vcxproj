@@ -159,6 +159,7 @@
     <ClCompile Include="OrderClerk\OrderModel.cpp" />
     <ClCompile Include="OrderClerk\OrderControllerTests.cpp" />
     <ClCompile Include="OrderClerk\OrderController.cpp" />
+    <ClCompile Include="OrderClerk\OrderViewTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
