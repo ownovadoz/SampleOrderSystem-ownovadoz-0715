@@ -167,6 +167,7 @@
     <ClCompile Include="Testing\DummyDataGeneratorTests.cpp" />
     <ClCompile Include="Testing\DummyDataGenerator.cpp" />
     <ClCompile Include="Testing\DummySeederTests.cpp" />
+    <ClCompile Include="Testing\EndToEndOrderFlowTests.cpp" />
     <ClCompile Include="Testing\DummySeeder.cpp" />
     <ClCompile Include="ProductionLine\ProductionQueueModelTests.cpp" />
     <ClCompile Include="ProductionLine\ProductionQueueModel.cpp" />

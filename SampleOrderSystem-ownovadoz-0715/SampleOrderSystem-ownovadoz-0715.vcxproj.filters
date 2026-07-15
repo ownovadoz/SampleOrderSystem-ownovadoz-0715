@@ -92,6 +92,9 @@
     <ClCompile Include="Testing\DummySeederTests.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
+    <ClCompile Include="Testing\EndToEndOrderFlowTests.cpp">
+      <Filter>Testing</Filter>
+    </ClCompile>
     <ClCompile Include="Testing\DummySeeder.cpp">
       <Filter>Testing</Filter>
     </ClCompile>
