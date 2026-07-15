@@ -150,6 +150,7 @@
     <ClCompile Include="Common\ClockTests.cpp" />
     <ClCompile Include="Common\Clock.cpp" />
     <ClCompile Include="Common\JsonValue.cpp" />
+    <ClCompile Include="Common\ConsoleInputTests.cpp" />
     <ClCompile Include="SampleClerk\SampleModelTests.cpp" />
     <ClCompile Include="SampleClerk\SampleModel.cpp" />
     <ClCompile Include="SampleClerk\SampleControllerTests.cpp" />

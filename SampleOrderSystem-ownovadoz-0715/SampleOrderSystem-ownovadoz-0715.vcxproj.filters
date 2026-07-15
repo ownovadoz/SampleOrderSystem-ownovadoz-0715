@@ -30,6 +30,9 @@
     <ClCompile Include="Common\JsonValue.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Common\ConsoleInputTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
     <ClCompile Include="SampleClerk\SampleModelTests.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
