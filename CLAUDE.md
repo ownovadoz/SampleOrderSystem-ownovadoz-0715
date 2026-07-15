@@ -1,111 +1,79 @@
 # CLAUDE.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+이 문서는 Claude Code(claude.ai/code)가 이 저장소에서 작업할 때 참고하는 안내 문서입니다.
 
-## Project status
+## 문서 구조 안내
 
-This repository currently contains only an empty Visual Studio C++ console application skeleton
-(`SampleOrderSystem-ownovadoz-0715.vcxproj` / `.slnx`) — no source files exist yet. Requirements live in
-`docs/requirements.pdf` (official spec, Korean) and `docs/memo.txt` (developer's own clarifying notes/decisions
-on ambiguous points in the spec). Read both before implementing; `memo.txt` resolves several ambiguities left
-open by the spec and should take precedence where the two differ.
+> **핵심 요약**: 공통 규칙은 `PRD.md`, 모듈별 상세 규칙은 `docs/requirements/*.md`. 모듈을 개발할 때는
+> `PRD.md` + 해당 모듈 문서 두 개만 읽으면 된다.
 
-This repo ("SampleOrderSystem-*") is the final project build, distinct from four separate PoC repos
-(`ConsoleMVC-*`, `DataPersistence-*`, `DataMonitor-*`, `DummyDataGenerator-*`) that validate MVC structure,
-persistence, a data monitoring console tool, and dummy data generation respectively. This project is not meant
-to import those as libraries, but its architecture (MVC skeleton, persistence approach, monitoring tool) should
-be built following the same patterns/foundations established in those PoCs when they are available alongside
-this repo.
+각 모듈(시료 관리 / 주문 접수·승인·거절 / 생산 라인 / 모니터링 / 출고 처리)은 서로 다른 에이전트가 나누어
+개발하기 때문에, 요구사항 문서를 아래와 같이 분리해 두었습니다.
 
-## Build
+- **`PRD.md`**: 모든 모듈이 공통으로 알아야 하는 내용만 (공유 도메인 모델, 주문 상태 전이, 재고 선점 규칙,
+  시간/영속성 정책, 아키텍처·개발 공통 규칙).
+- **`docs/requirements/*.md`** (모듈별 1개 파일): 해당 모듈에만 해당하는 상세 요구사항. 다른 모듈과 겹치는
+  내용이라도 각자의 문서에 중복해서 적어 두었으므로, 자신이 맡은 모듈 문서만 봐도 완결적으로 이해할 수
+  있습니다.
 
-Visual Studio 2022+ (PlatformToolset v145), C++20, console application (`_CONSOLE`), targets Win32 and x64,
-Debug and Release configurations.
+## 프로젝트 현황
 
-- Open `SampleOrderSystem-ownovadoz-0715.slnx` in Visual Studio and build, or via CLI:
+> **핵심 요약**: 아직 소스 코드가 없는 빈 Visual Studio C++20 콘솔 프로젝트 뼈대만 존재한다.
+
+이 저장소는 현재 비어 있는 Visual Studio C++ 콘솔 애플리케이션 뼈대
+(`SampleOrderSystem-ownovadoz-0715.vcxproj` / `.slnx`)만 있고, 실제 소스 파일은 아직 없습니다. 요구사항은
+`docs/requirements.pdf`(공식 기능 명세, 한글)와 `docs/memo.txt`(명세의 모호한 부분에 대해 개발자 본인이 미리
+정리해 둔 결정 사항)에 있습니다. 구현 전 두 문서를 모두 읽어야 하며, 두 문서가 상충할 경우 `memo.txt`의
+결정을 우선합니다.
+
+## 참고 PoC 저장소
+
+> **핵심 요약**: 4개의 PoC 저장소가 모두 준비 완료 상태이며, 이 프로젝트는 그 구조를 참고해 다시 구현한다
+> (라이브러리로 import하지 않는다).
+
+이 저장소("SampleOrderSystem-ownovadoz-0715")는 최종 프로젝트이며, 아래 4개의 별도 PoC 저장소와는 구분되는
+프로젝트입니다.
+
+| PoC 항목 | 저장소 | 상태 |
+|---|---|---|
+| MVC 스켈레톤 코드 | `ConsoleMVC-ownovadoz-0715` | 준비 완료 |
+| 데이터 영속성 처리 | `DataPersistence-ownovadoz-0715` | 준비 완료 |
+| 데이터 모니터링 Tool | `DataMonitor-ownovadoz-0715` | 준비 완료 |
+| Dummy 데이터 생성 Tool | `DummyDataGenerator-ownovadoz-0715` | 준비 완료 |
+
+이들은 모두 별도의 GitHub 저장소이며, 이 프로젝트가 라이브러리처럼 import하는 대상이 아닙니다. 각 PoC가
+검증한 구조/패턴(MVC 계층 분리, 영속성 저장 방식, 모니터링 도구 구조, 더미 데이터 생성 방식)을 참고해서
+이 프로젝트 안에 동등한 방식으로 다시 구현합니다.
+
+> 출처: `docs/requirements.pdf` p.25 (미션1 PoC 개발 표), p.27 (제출 방법 — 저장소 이름 규칙) /
+> `docs/memo.txt` 25번째 줄("PoC를 그대로 쓰는 건 아니지만 그 기반을 사용해야 함"), 29번째 줄("각 기능을 만들
+> 때 PoC로 만든 것들을 참고해서 만들도록 해야 함")
+
+## 빌드
+
+> **핵심 요약**: Visual Studio에서 `.slnx`를 열거나 `msbuild`로 빌드. 테스트 프레임워크는 아직 없음.
+
+Visual Studio 2022+ (PlatformToolset v145), C++20, 콘솔 애플리케이션(`_CONSOLE`), Win32/x64 및 Debug/Release
+구성을 모두 지원합니다.
+
+- `SampleOrderSystem-ownovadoz-0715.slnx`를 Visual Studio로 열어 빌드하거나, CLI에서:
   `msbuild SampleOrderSystem-ownovadoz-0715.slnx /p:Configuration=Debug /p:Platform=x64`
-- No test framework or lint config is present yet — set one up (e.g. a `Tests` project alongside the app) as
-  part of implementing the harness called for in the requirements.
+- 아직 테스트 프레임워크나 린트 설정이 없습니다. 요구사항에서 요구하는 Harness(검증 도구) 구축의 일환으로
+  (예: 앱 옆에 `Tests` 프로젝트 추가 등) 직접 구성해야 합니다.
 
-## Domain overview
+> 출처: `SampleOrderSystem-ownovadoz-0715/SampleOrderSystem-ownovadoz-0715.vcxproj` 설정값 (직접 확인) /
+> `docs/requirements.pdf` p.26 (미션2 프로젝트 개발 — Test, Harness 주안점)
 
-The system is a console-driven order/production/inventory manager for a fictional semiconductor sample
-("시료") vendor. A **customer** requests samples by email; an **order clerk** (주문 담당자) enters the order
-into the system; a **production clerk** (생산 담당자) approves/rejects it and owns the production line. There is
-no direct link between the order clerk and the production line — orders only interact with inventory and the
-production queue through the approval step.
+## 도메인 개요
 
-### Core entities
+> **핵심 요약**: 도메인 모델·상태 전이·재고 선점 규칙 등 상세 내용은 `PRD.md` 2장에 정리되어 있다. 여기서는
+> 전체 그림만 요약한다.
 
-- **Sample (시료)**: `sample ID`, `name`, `average production time`, `yield` (수율 = good units / total units
-  produced, e.g. 0.9). Only registered samples can be ordered.
-- **Order (주문)**: `order ID`, `sample ID`, `customer name`, `quantity`, `status`.
-- **Inventory**: per-sample stock count.
-- **Production line**: a single line, produces one unit at a time, FIFO queue of production jobs.
+콘솔 기반으로 동작하는 시료 주문/생산/재고 관리 시스템입니다. **고객**이 시료를 요청하면 **주문 담당자**가
+주문을 접수하고, **생산 담당자**가 승인/거절 및 생산 라인을 운용합니다. 주문 담당자와 생산 라인 사이에는
+직접적인 연결이 없으며, 재고 수량만이 둘을 잇는 유일한 접점입니다. 상세 도메인 모델(시료/주문 필드), 주문
+상태 전이(RESERVED → CONFIRMED/PRODUCING → RELEASE, REJECTED), 재고 선점 규칙, 시간/영속성 공통 정책은
+`PRD.md` 2장을 참고하세요.
 
-### Order state machine
-
-```
-RESERVED --(reject)--> REJECTED                          [terminal, excluded from all monitoring]
-RESERVED --(approve, stock sufficient)--> CONFIRMED
-RESERVED --(approve, stock insufficient)--> PRODUCING --(production job completes)--> CONFIRMED
-CONFIRMED --(manual release action)--> RELEASE
-```
-
-- `RESERVED`: order accepted, awaiting approval decision.
-- `REJECTED`: rejected by production clerk; not a normal-flow state, always excluded from monitoring.
-- `PRODUCING`: approved, but available stock was insufficient — a production job was queued to cover the
-  shortfall.
-- `CONFIRMED`: approved and stock is sufficient to fulfill the order (either immediately, or once the queued
-  production job finishes) — awaiting manual shipment.
-- `RELEASE`: shipped. **Shipment is always a manual, human-triggered action** — production completing must
-  never itself flip an order to `RELEASE`, even though inventory accounting treats the order's stock as already
-  reserved at that point.
-
-### Inventory reservation semantics
-
-- Placing/approving a new order only ever checks **unreserved** stock (current stock minus what other pending
-  orders have already claimed) — the production line and order clerk are never directly coupled, so this
-  unreserved figure is the sole handoff between them.
-- The **inventory/stock view** (monitoring, sample list) always shows raw on-hand stock, including quantity
-  already reserved by other orders — reservation only affects what's available to *new* order approvals, not
-  what's displayed as "in stock."
-
-### Production line rules
-
-- Single line, one unit at a time; queued jobs run strictly FIFO — whatever enters the queue is produced
-  unconditionally, in order.
-- On approval with insufficient stock, the shortfall (order quantity − available stock) is what gets queued for
-  production, not the full order quantity.
-- Actual production quantity accounts for yield on the way in, but inventory is credited at 100% on completion
-  (this is why stock accumulates over time): `actual_qty = ceil(shortfall / yield)`,
-  `total_production_time = average_production_time * actual_qty`.
-- When a job completes, inventory increases by `actual_qty` and the associated order transitions
-  `PRODUCING -> CONFIRMED`.
-- No multithreading: production isn't advanced by a background timer/thread. Instead, elapsed real time is
-  checked/caught up lazily whenever relevant state is touched (e.g. on order approval, stock inquiry, or
-  production line inquiry) — see memo.txt point 20 on when to refresh.
-
-### Persistence & time
-
-- State must be fully saved on exit and restored on startup, including any production job **in progress**
-  (single production line's current job and its progress must itself be persisted/restored, not just completed
-  jobs).
-- On restart, if real time has advanced past a queued job's (or several queued jobs') completion time while the
-  app was closed, that catch-up must be applied immediately on load — production is computed from wall-clock
-  time, not from an in-memory tick loop.
-- Time must be mockable/overridable for tests (don't hard-code `std::chrono::system_clock::now()` calls
-  throughout — go through a single time source that tests can override).
-
-### Menu structure (console UI, exact layout is flexible)
-
-- **시료 관리 (Sample management)**: register sample (ID, name, avg. production time, yield), list all
-  samples with current stock, search by name/attribute.
-- **시료 주문 (Order placement)**: create a RESERVED order (sample ID, customer name, quantity).
-- **주문 승인/거절 (Approve/reject)**: list RESERVED orders; approve (auto-routes to CONFIRMED or PRODUCING per
-  stock check above) or reject (-> REJECTED) a specific order.
-- **모니터링 (Monitoring)**: order counts by status (RESERVED/CONFIRMED/PRODUCING/RELEASE, excluding REJECTED);
-  per-sample stock levels with a derived status label — 여유 (ample) / 부족 (low) / 고갈 (zero) relative to
-  demand.
-- **출고 처리 (Shipment)**: list CONFIRMED orders; ship a specific one, moving it to RELEASE.
-- **생산 라인 (Production line)**: currently-producing job's progress; FIFO queue of jobs awaiting production.
+> 출처: `docs/requirements.pdf` p.6 (역할별 흐름도), p.7 (시스템 개요) / `docs/memo.txt` 8번째 줄
+> ("주문담당자 - 생산담당자 - 생산라인에서 주문담당자와 생산라인의 직접적인 연결은 없다는 뜻")
