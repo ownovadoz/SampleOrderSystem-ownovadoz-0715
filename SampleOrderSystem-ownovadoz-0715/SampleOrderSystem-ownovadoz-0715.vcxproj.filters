@@ -78,6 +78,9 @@
     <ClCompile Include="ProductionLine\ProductionQueueModel.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ProductionLine\ProductionLineControllerTests.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h">

@@ -166,6 +166,7 @@
     <ClCompile Include="Testing\DummyDataGenerator.cpp" />
     <ClCompile Include="ProductionLine\ProductionQueueModelTests.cpp" />
     <ClCompile Include="ProductionLine\ProductionQueueModel.cpp" />
+    <ClCompile Include="ProductionLine\ProductionLineControllerTests.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Common\Time.h" />
