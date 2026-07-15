@@ -53,6 +53,14 @@ IntResult readInt(std::istream& in) {
     }
 }
 
+void printScreenHeader(std::ostream& out, const std::string& title, bool cancellable) {
+    out << "\n== " << title;
+    if (cancellable) {
+        out << " (취소: q)";
+    }
+    out << " ==\n";
+}
+
 DoubleResult readDouble(std::istream& in) {
     auto line = readLine(in);
     if (!line.ok) {

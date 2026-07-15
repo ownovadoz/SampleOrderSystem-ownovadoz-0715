@@ -16,28 +16,30 @@ void SampleView::printTable(const std::vector<common::Sample>& samples, std::ost
 }
 
 void SampleView::showRegisterScreen(std::istream& in, std::ostream& out) {
-    out << "시료 ID (취소: q) > ";
+    common::printScreenHeader(out, "시료 등록");
+
+    out << "시료 ID > ";
     auto idInput = common::readLine(in);
     if (!idInput.ok || idInput.cancelled) {
         out << "취소되었습니다\n";
         return;
     }
 
-    out << "이름 (취소: q) > ";
+    out << "이름 > ";
     auto nameInput = common::readLine(in);
     if (!nameInput.ok || nameInput.cancelled) {
         out << "취소되었습니다\n";
         return;
     }
 
-    out << "평균 생산시간(분, 소수 가능. 예: 1.5) (취소: q) > ";
+    out << "평균 생산시간(분, 소수 가능. 예: 1.5) > ";
     auto minutesInput = common::readDouble(in);
     if (!minutesInput.ok) {
         out << (minutesInput.cancelled ? "취소되었습니다\n" : "잘못된 입력입니다\n");
         return;
     }
 
-    out << "수율 (취소: q) > ";
+    out << "수율 > ";
     auto yieldInput = common::readDouble(in);
     if (!yieldInput.ok) {
         out << (yieldInput.cancelled ? "취소되었습니다\n" : "잘못된 입력입니다\n");
@@ -56,6 +58,7 @@ void SampleView::showRegisterScreen(std::istream& in, std::ostream& out) {
 }
 
 void SampleView::showListScreen(std::ostream& out) {
+    common::printScreenHeader(out, "시료 목록", false);
     auto samples = controller_.listSamples();
     if (samples.empty()) {
         out << "등록된 시료가 없습니다\n";
@@ -65,7 +68,9 @@ void SampleView::showListScreen(std::ostream& out) {
 }
 
 void SampleView::showSearchScreen(std::istream& in, std::ostream& out) {
-    out << "검색어 (취소: q) > ";
+    common::printScreenHeader(out, "시료 검색");
+
+    out << "검색어 > ";
     auto keywordInput = common::readLine(in);
     if (!keywordInput.ok || keywordInput.cancelled) {
         out << "취소되었습니다\n";

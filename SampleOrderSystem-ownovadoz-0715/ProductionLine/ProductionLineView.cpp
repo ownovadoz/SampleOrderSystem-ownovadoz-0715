@@ -1,10 +1,12 @@
 #include "ProductionLineView.h"
+#include "../Common/ConsoleInput.h"
 
 namespace productionline {
 
 ProductionLineView::ProductionLineView(ProductionLineController& controller) : controller_(controller) {}
 
 void ProductionLineView::showCurrentJobScreen(std::ostream& out) {
+    common::printScreenHeader(out, "생산 현황", false);
     auto job = controller_.getCurrentJob();
     if (!job.has_value()) {
         out << "대기 중인 생산 없음\n";
@@ -18,6 +20,7 @@ void ProductionLineView::showCurrentJobScreen(std::ostream& out) {
 }
 
 void ProductionLineView::showQueueScreen(std::ostream& out) {
+    common::printScreenHeader(out, "대기 주문 확인", false);
     auto queue = controller_.getQueue();
     if (queue.empty()) {
         out << "대기 중인 주문 없음\n";

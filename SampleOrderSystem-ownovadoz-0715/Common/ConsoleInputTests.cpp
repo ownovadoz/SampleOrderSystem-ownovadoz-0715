@@ -81,3 +81,17 @@ TEST(ConsoleInputTest, ReadDouble_Q_IsCancelled) {
     auto result = readDouble(in);
     EXPECT_TRUE(result.cancelled);
 }
+
+TEST(ConsoleInputTest, PrintScreenHeader_Cancellable_ShowsTitleAndCancelHint) {
+    std::ostringstream out;
+    printScreenHeader(out, "시료 등록", true);
+    EXPECT_NE(out.str().find("시료 등록"), std::string::npos);
+    EXPECT_NE(out.str().find("취소"), std::string::npos);
+}
+
+TEST(ConsoleInputTest, PrintScreenHeader_NotCancellable_OmitsCancelHint) {
+    std::ostringstream out;
+    printScreenHeader(out, "시료 목록", false);
+    EXPECT_NE(out.str().find("시료 목록"), std::string::npos);
+    EXPECT_EQ(out.str().find("취소"), std::string::npos);
+}

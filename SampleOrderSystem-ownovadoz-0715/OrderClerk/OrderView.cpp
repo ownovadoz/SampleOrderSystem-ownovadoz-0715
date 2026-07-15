@@ -6,21 +6,23 @@ namespace orderclerk {
 OrderView::OrderView(OrderController& controller) : controller_(controller) {}
 
 void OrderView::showReserveScreen(std::istream& in, std::ostream& out) {
-    out << "시료 ID (취소: q) > ";
+    common::printScreenHeader(out, "시료 예약(주문 접수)");
+
+    out << "시료 ID > ";
     auto sampleIdInput = common::readLine(in);
     if (!sampleIdInput.ok || sampleIdInput.cancelled) {
         out << "취소되었습니다\n";
         return;
     }
 
-    out << "고객명 (취소: q) > ";
+    out << "고객명 > ";
     auto customerNameInput = common::readLine(in);
     if (!customerNameInput.ok || customerNameInput.cancelled) {
         out << "취소되었습니다\n";
         return;
     }
 
-    out << "주문 수량 (취소: q) > ";
+    out << "주문 수량 > ";
     auto quantityInput = common::readInt(in);
     if (!quantityInput.ok) {
         out << (quantityInput.cancelled ? "취소되었습니다\n" : "잘못된 입력입니다\n");

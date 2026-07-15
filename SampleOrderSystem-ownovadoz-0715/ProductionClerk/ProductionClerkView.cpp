@@ -20,7 +20,7 @@ void printOrderTable(const std::vector<common::Order>& orders, std::ostream& out
 // 실제로 유효한 번호를 골랐을 때만 그 인덱스(0-base)를 반환한다.
 std::optional<size_t> selectFromList(std::istream& in, std::ostream& out, size_t listSize,
                                       const std::string& prompt) {
-    out << prompt << " (취소: q) > ";
+    out << prompt << " > ";
     auto input = common::readInt(in);
     if (!input.ok) {
         out << (input.cancelled ? "취소되었습니다\n" : "잘못된 입력입니다\n");
@@ -38,6 +38,7 @@ std::optional<size_t> selectFromList(std::istream& in, std::ostream& out, size_t
 ProductionClerkView::ProductionClerkView(ProductionClerkController& controller) : controller_(controller) {}
 
 void ProductionClerkView::showApprovalScreen(std::istream& in, std::ostream& out) {
+    common::printScreenHeader(out, "주문 승인");
     auto pending = controller_.listPendingApprovals();
     if (pending.empty()) {
         out << "승인 대기 주문이 없습니다\n";
@@ -61,6 +62,7 @@ void ProductionClerkView::showApprovalScreen(std::istream& in, std::ostream& out
 }
 
 void ProductionClerkView::showRejectionScreen(std::istream& in, std::ostream& out) {
+    common::printScreenHeader(out, "주문 거절");
     auto pending = controller_.listPendingApprovals();
     if (pending.empty()) {
         out << "거절 대기 주문이 없습니다\n";
@@ -76,6 +78,7 @@ void ProductionClerkView::showRejectionScreen(std::istream& in, std::ostream& ou
 }
 
 void ProductionClerkView::showShipmentScreen(std::istream& in, std::ostream& out) {
+    common::printScreenHeader(out, "출고 처리");
     auto shippable = controller_.listShippable();
     if (shippable.empty()) {
         out << "출고 가능한 주문이 없습니다\n";
